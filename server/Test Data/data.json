@@ -1,0 +1,27 @@
+[
+  {
+    "firstName": "Jose",
+    "lastName": "Hernandez",
+    "birthDay": "12.06.1975"
+  },
+  {
+    "firstName": "Luis",
+    "lastName": "Rodriguez",
+    "birthDay": "08.15.1980"
+  },
+  {
+    "firstName": "Jorge",
+    "lastName": "Ramirez",
+    "birthDay": "08.14.1985"
+  },
+  {
+    "firstName": "Farid",
+    "lastName": "Sobhani",
+    "birthDay": "12.26.1985"
+  },
+  {
+    "firstName": "Lucas",
+    "lastName": "Johnson",
+    "birthDay": "11.30.1990"
+  }
+]
