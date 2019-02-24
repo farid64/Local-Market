@@ -3,16 +3,6 @@ import { connect } from 'react-redux';
 import { getUser, searchTermChange } from '../actions';
 
 class SearchBar extends Component {
-  componentdidMount() {
-    console.log('mount :' + this.props.searchTerm);
-  }
-
-  // componentDidUpdate() {
-  //   console.log(this.props.searchTerm);
-  //   this.props.getUser(this.props.searchTerm);
-  //   console.log(this.props.searchResult);
-  // }
-
   onInputChange(event) {
     this.props.searchTermChange(event.target.value);
     this.props.getUser(event.target.value);
