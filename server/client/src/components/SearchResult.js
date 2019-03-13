@@ -5,7 +5,9 @@ import { getUser } from '../actions';
 class SearchResult extends Component {
   renderResult() {
     const { searchResult } = this.props;
-    // console.log(searchResult);
+    if(searchResult[0]){
+      console.log(searchResult[0].id);
+    }
     return searchResult.map(item => {
       return (
         <ul key={item.id}>
@@ -22,7 +24,7 @@ class SearchResult extends Component {
       <div>
         <div>
           <p>Search result will be shown here!</p>
-          <ul>{this.renderResult()}</ul>
+          {this.renderResult()}
         </div>
       </div>
     );

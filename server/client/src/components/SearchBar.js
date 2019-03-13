@@ -8,7 +8,6 @@ const styles = theme => ({
   formClass: {
     textDecorationLine: 'none',
     position: 'relative',
-    bottom: 50,
     color: theme.palette.primary.dark,
     borderWidth: 3,
     borderColor: theme.palette.primary.light,

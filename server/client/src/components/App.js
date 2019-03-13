@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import MuiRoot from './MuiRoot';
-import SearchBar from './SearchBar';
-import SearchResult from './SearchResult';
+import Dashboard from './Dashboard/Dashboard';
 
 const styles = theme => ({
   App: {
@@ -20,12 +18,7 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.App}>
-        <header className="App-header">
-          <SearchBar />
-          <SearchResult />
-        </header>
-      </div>
+      <Dashboard />
     );
   }
 }
