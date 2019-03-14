@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,7 @@ import AtmIcon from '@material-ui/icons/LocalAtmTwoTone';
 import MoneyOrderIcon from '@material-ui/icons/AttachMoneyTwoTone';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
+import { menuSelect, customerSelect } from '../actions';
 
 const styles = theme => ({
   root: {
@@ -30,27 +32,37 @@ const styles = theme => ({
   }
 });
 
-const MainMenue = ({ classes }) => {
+
+
+class  MainMenue extends Component {
+
+  handleMenuClick(event){
+    console.log(event.currentTarget.dataset.name);
+    this.props.menuSelect(event.currentTarget.dataset.name);
+  }
+
+  render() {
+    const { classes, menuSelected } = this.props;
   return (
     <div className={classes.root}>
       <Grid container justify="center" spacing={40}>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Delete">
+            <IconButton aria-label="Retail" data-name="retail" onClick={this.handleMenuClick.bind(this)}>
               <RetailIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Face">
+            <IconButton aria-label="Face" data-name="face" onClick={this.handleMenuClick.bind(this)}>
               <FaceIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Face">
+            <IconButton aria-label="Account Balance" data-name="checks" onClick={this.handleMenuClick.bind(this)}>
               <AccountBalanceIcon className={classes.button} />
             </IconButton>
           </Paper>
@@ -71,52 +83,67 @@ const MainMenue = ({ classes }) => {
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="money_transfer" onClick={this.handleMenuClick.bind(this)}>
               <MoneyTransferIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="fax" onClick={this.handleMenuClick.bind(this)}>
               <FaxIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="ebt" onClick={this.handleMenuClick.bind(this)}>
               <EbtIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="other_sales" onClick={this.handleMenuClick.bind(this)}>
               <OtherSaleIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="atm" onClick={this.handleMenuClick.bind(this)}>
               <AtmIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
           <Paper className={classes.paper}>
-            <IconButton aria-label="Money Transfer">
+            <IconButton aria-label="Money Transfer" data-name="money_order" onClick={this.handleMenuClick.bind(this)}>
               <MoneyOrderIcon className={classes.button} />
             </IconButton>
           </Paper>
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
-          <Paper className={classes.paper}>sm=3</Paper>
+          <Paper className={classes.paper}>
+            <IconButton onClick={() => console.log(menuSelected)}>
+              <AtmIcon />
+            </IconButton>
+          </Paper>
         </Grid>
       </Grid>
     </div>
   );
+  }
 };
 
-export default withStyles(styles)(MainMenue);
+const mapStateToProps = state => {
+  return {
+    menuSelected: state.search.menuSelected,
+    customerSelected: state.search.customerSelected
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { menuSelect, customerSelect}
+)(withStyles(styles)(MainMenue));

@@ -12,3 +12,17 @@ export const searchTermChange = term => {
     payload: term
   };
 };
+
+export const menuSelect = menu => {
+  return {
+    type: 'menu_select',
+    payload: menu
+  };
+};
+
+export const customerSelect = customer => {
+  return {
+    type: 'customer_select',
+    payload: customer
+  }
+}
