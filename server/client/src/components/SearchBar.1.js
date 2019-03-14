@@ -8,6 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import { getUser, searchTermChange } from '../actions';
+import SearchResult from './SearchResult';
 
 const styles = theme => ({
   search: {
@@ -15,15 +16,15 @@ const styles = theme => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit * 3,
-      width: 'auto',
-    },
+      width: 'auto'
+    }
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
@@ -32,11 +33,11 @@ const styles = theme => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRoot: {
     color: 'inherit',
-    width: '100%',
+    width: '100%'
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
@@ -46,15 +47,15 @@ const styles = theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
+      width: 200
+    }
   }
 });
 
 class SearchBar extends Component {
   state = {
-    anchorEl: null,
-  }
+    anchorEl: null
+  };
   onInputChange(event) {
     this.props.searchTermChange(event.target.value);
     this.props.getUser(event.target.value);
@@ -62,10 +63,10 @@ class SearchBar extends Component {
       anchorEl: event.currentTarget
     });
   }
-  handlePopClose(){
+  handlePopClose() {
     this.setState({
       anchorEl: null
-    })
+    });
   }
 
   render() {
@@ -82,27 +83,30 @@ class SearchBar extends Component {
           placeholder="Search…"
           classes={{
             root: classes.inputRoot,
-            input: classes.inputInput,
+            input: classes.inputInput
           }}
           value={searchTerm}
           onChange={this.onInputChange.bind(this)}
         />
-        <Popover
+        {/* <Popover
           id="simple-popper"
           open={openPop}
           anchorEl={anchorEl}
           onClose={this.handlePopClose.bind(this)}
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'center',
+            horizontal: 'center'
           }}
           transformOrigin={{
             vertical: 'top',
-            horizontal: 'center',
+            horizontal: 'center'
           }}
         >
-          <Typography className={classes.typography}>The content of the Popover.</Typography>
-        </Popover>
+          <Typography className={classes.typography}>
+            The content of the Popover.
+          </Typography>
+          <SearchResult />
+        </Popover> */}
       </div>
     );
   }
@@ -116,8 +120,8 @@ const mapStateToProps = state => {
 };
 
 SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
+  classes: PropTypes.object.isRequired
+};
 
 export default connect(
   mapStateToProps,
