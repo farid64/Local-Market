@@ -8,7 +8,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import { getUser, searchTermChange } from '../actions';
-import SearchResult from './SearchResult';
 
 const styles = theme => ({
   search: {

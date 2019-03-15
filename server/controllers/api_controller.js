@@ -6,8 +6,11 @@ exports.index = function(req, res) {
 };
 
 exports.user = function(req, res) {
+  const { userId } = req.params;
   console.log(req.params);
-  res.send(req.params);
+  Customer.findByPk(userId).then(result => {
+    res.json(result);
+  });
 };
 
 exports.createUser = function(req, res) {
@@ -15,7 +18,7 @@ exports.createUser = function(req, res) {
   res.json(req.body);
 };
 
-exports.getUser = function(req, res) {
+exports.getUsers = function(req, res) {
   const { info } = req.body;
   const infoArr = info.split(' ');
   const fn = infoArr[0];

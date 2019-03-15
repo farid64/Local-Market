@@ -1,7 +1,7 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+import teal from '@material-ui/core/colors/teal';
+import cyan from '@material-ui/core/colors/cyan';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // A theme with custom primary and secondary color.
@@ -9,22 +9,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700],
+      light: teal[300],
+      main: teal[500],
+      dark: teal[700]
     },
     secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700],
-    },
+      light: cyan[300],
+      main: cyan[500],
+      dark: cyan[700]
+    }
   },
   typography: {
-    useNextVariants: true,
-  },
+    useNextVariants: true
+  }
 });
 
-const MuiRoot = (Component) => {
+const MuiRoot = Component => {
   function WithRoot(props) {
     // MuiThemeProvider makes the theme available down the React tree
     // thanks to React context.
@@ -38,6 +38,6 @@ const MuiRoot = (Component) => {
   }
 
   return WithRoot;
-}
+};
 
 export default MuiRoot;
