@@ -18,9 +18,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
-import SearchBar from '../SearchBar.1';
-import SearchResult from '../SearchResult.1';
-import MainMenue from '../MainMenue';
+import SearchBar from '../SearchBar';
+import SearchResult from '../SearchResult';
+import MainMenu from '../MainMenu';
+import Title from './Title';
+import Atm from '../Atm';
 
 const drawerWidth = 240;
 
@@ -143,20 +145,8 @@ class Dashboard extends React.Component {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography
-                component="h1"
-                variant="h6"
-                color="inherit"
-                noWrap
-                className={classes.title}
-              >
-                Dashboard
-              </Typography>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+
+              <Title />
               <SearchBar />
             </Toolbar>
           </AppBar>
@@ -180,10 +170,13 @@ class Dashboard extends React.Component {
             <Divider />
             <List>{secondaryListItems}</List>
           </Drawer>
+
+          {/* beginning of Routes */}
+
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
 
-            <Route exact path="/" component={MainMenue} />
+            <Route exact path="/" component={MainMenu} />
 
             <Route
               path="/linechart"
@@ -215,6 +208,7 @@ class Dashboard extends React.Component {
               )}
             />
             <Route path="/searchresult" component={SearchResult} />
+            <Route path="/atm" component={Atm} />
           </main>
         </div>
       </BrowserRouter>

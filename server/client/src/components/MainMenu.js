@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 // icons import begin
@@ -18,8 +19,8 @@ import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import { menuSelect, customerSelect } from '../actions';
-import SearchBar from './SearchBar.1';
-import SearchResult from './SearchResult.1';
+import SearchBar from './SearchBar';
+import SearchResult from './SearchResult';
 
 const styles = theme => ({
   root: {
@@ -47,9 +48,16 @@ const styles = theme => ({
   }
 });
 
+const routes = {
+  Retail: '/retail',
+  Face: '/face',
+  ATM: '/atm'
+};
+
 class MainMenue extends Component {
   state = {
-    modalOpen: false
+    modalOpen: false,
+    redirectToMenuRoute: false
   };
 
   handleModalOpen = () => {
@@ -57,7 +65,7 @@ class MainMenue extends Component {
   };
 
   handleModalClose = () => {
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, redirectToMenuRoute: true });
   };
 
   handleMenuClick = event => {
@@ -68,6 +76,9 @@ class MainMenue extends Component {
 
   render() {
     const { classes, menuSelected } = this.props;
+
+    if (this.state.redirectToMenuRoute)
+      return <Redirect to={routes[menuSelected]} />;
     return (
       <div className={classes.root}>
         <Grid container justify="center" spacing={40}>
@@ -75,7 +86,7 @@ class MainMenue extends Component {
             <Paper className={classes.paper}>
               <IconButton
                 aria-label="Retail"
-                data-name="retail"
+                data-name="Retail"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <RetailIcon className={classes.button} />
@@ -86,7 +97,7 @@ class MainMenue extends Component {
             <Paper className={classes.paper}>
               <IconButton
                 aria-label="Face"
-                data-name="face"
+                data-name="Face"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <FaceIcon className={classes.button} />
@@ -97,7 +108,7 @@ class MainMenue extends Component {
             <Paper className={classes.paper}>
               <IconButton
                 aria-label="Account Balance"
-                data-name="checks"
+                data-name="Checks"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <AccountBalanceIcon className={classes.button} />
@@ -122,7 +133,7 @@ class MainMenue extends Component {
             <Paper className={classes.paper}>
               <IconButton
                 aria-label="Money Transfer"
-                data-name="money_transfer"
+                data-name="Money Transfer"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <MoneyTransferIcon className={classes.button} />
@@ -132,8 +143,8 @@ class MainMenue extends Component {
           <Grid item lg={3} md={6} xs={12}>
             <Paper className={classes.paper}>
               <IconButton
-                aria-label="Money Transfer"
-                data-name="fax"
+                aria-label="Fax"
+                data-name="Fax"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <FaxIcon className={classes.button} />
@@ -143,8 +154,8 @@ class MainMenue extends Component {
           <Grid item lg={3} md={6} xs={12}>
             <Paper className={classes.paper}>
               <IconButton
-                aria-label="Money Transfer"
-                data-name="ebt"
+                aria-label="EBT"
+                data-name="EBT"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <EbtIcon className={classes.button} />
@@ -154,8 +165,8 @@ class MainMenue extends Component {
           <Grid item lg={3} md={6} xs={12}>
             <Paper className={classes.paper}>
               <IconButton
-                aria-label="Money Transfer"
-                data-name="other_sales"
+                aria-label="Other Sales"
+                data-name="Other Sales"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <OtherSaleIcon className={classes.button} />
@@ -165,8 +176,8 @@ class MainMenue extends Component {
           <Grid item lg={3} md={6} xs={12}>
             <Paper className={classes.paper}>
               <IconButton
-                aria-label="Money Transfer"
-                data-name="atm"
+                aria-label="ATM"
+                data-name="ATM"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <AtmIcon className={classes.button} />
@@ -176,8 +187,8 @@ class MainMenue extends Component {
           <Grid item lg={3} md={6} xs={12}>
             <Paper className={classes.paper}>
               <IconButton
-                aria-label="Money Transfer"
-                data-name="money_order"
+                aria-label="Money Order"
+                data-name="Money Order"
                 onClick={this.handleMenuClick.bind(this)}
               >
                 <MoneyOrderIcon className={classes.button} />
