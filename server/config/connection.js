@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('customer_api', 'me', 'password', {
+const sequelize = new Sequelize('scriba_db', 'scriba', 'password', {
   host: 'localhost',
   dialect: 'postgres',
   pool: {

@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../config/connection');
-// const Transaction = require('./transaction_model');
 
 const Customer = sequelize.define(
   'Customer',
@@ -23,11 +22,6 @@ const Customer = sequelize.define(
     timestamps: true
   }
 );
-
-console.log('hello');
-
-// Customer.hasMany(Transaction, { as: 'transactions', foreignKey: 'customer_id' });
-// Transaction.belongsTo(Customer);
 
 Customer.sync();
 
