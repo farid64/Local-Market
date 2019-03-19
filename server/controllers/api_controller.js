@@ -1,5 +1,8 @@
-const Op = require('sequelize').Op;
-const Customer = require('../models/api_model');
+const Sequelize = require('sequelize');
+const Customer = require('../models/customer_model');
+const Transaction = require('../models/transaction_model');
+
+const Op = Sequelize.Op;
 
 exports.index = function(req, res) {
   res.json({ farid: 'salam bar shoma' });
@@ -37,3 +40,22 @@ exports.getUsers = function(req, res) {
     res.json(results);
   });
 };
+
+exports.atm = function(req, res){
+  const { amount, fixedFee, feePercentage, authorization } = req.body;
+  Transaction.create({
+    transaction_date: Sequelize.fn('NOW'),
+    amount,
+    transaction_type: 'ATM',
+    transaction_category: '',
+    details: {
+      fixedFee,
+      feePercentage,
+      authorization
+    }
+  }).then(transaction=>{
+    console.log(transaction);
+    res.send("1");
+  });
+};
+

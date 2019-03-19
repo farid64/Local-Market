@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
+import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import CustomerName from './CustomerName';
 import { submitAtm } from '../actions';
@@ -54,7 +55,7 @@ const styles = theme => ({
 
 class Atm extends React.Component {
   state = {
-    Authorization: '',
+    authorization: '',
     amount: 0,
     fixedFee: 1,
     feePercentage: 0,
@@ -87,12 +88,12 @@ class Atm extends React.Component {
             style={{ width: '50%' }}
             className={classes.textField}
             value={this.state.Authorization}
-            onChange={this.handleChange('Authorization')}
+            onChange={this.handleChange('authorization')}
             margin="normal"
             variant="outlined"
           />
 
-          <break className={classes.lineBreak} />
+          <Divider className={classes.lineBreak} />
 
           <TextField
             id="outlined-number"
@@ -108,7 +109,7 @@ class Atm extends React.Component {
             variant="outlined"
           />
 
-          <break className={classes.lineBreak} />
+          <Divider className={classes.lineBreak} />
 
           <TextField
             id="outlined-number"
@@ -138,7 +139,7 @@ class Atm extends React.Component {
             variant="outlined"
           />
 
-          <break className={classes.lineBreak} />
+          <Divider className={classes.lineBreak} />
 
           <Typography className={classes.text}>Cash To Customer:</Typography>
           <TextField

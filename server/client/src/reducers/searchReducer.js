@@ -19,6 +19,8 @@ export default function(state = INTITIAL_STATE, action) {
       return { ...state, menuSelected: action.payload };
     case 'customer_select':
       return { ...state, customerSelected: action.payload };
+    case 'search_reset':
+      return { INTITIAL_STATE };
     default:
       return state;
   }
