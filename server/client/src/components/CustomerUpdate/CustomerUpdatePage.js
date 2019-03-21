@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import UpdateForm from "./CustomerUpdateForm";
+import React, { Component } from 'react';
+import UpdateForm from './CustomerUpdateForm';
 
 class CustomerUpdatePage extends Component {
   submit = values => {
