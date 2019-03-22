@@ -1,9 +1,9 @@
-import React from "react";
-import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import DatePicker from "../DateTimePicker/DateComponent";
+import React, { useState } from 'react';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import DatePicker from '../DateTimePicker/DateComponent';
 
 const style = theme => ({
   grid_item: {
@@ -14,12 +14,12 @@ const style = theme => ({
     marginRight: theme.spacing.unit
   },
   commentBox: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   commentField: {
-    width: "90%"
+    width: '90%'
   }
 });
 
@@ -48,7 +48,11 @@ const TestGrid = ({ classes }) => {
           className={classes.textField}
         />
         <br />
-        <DatePicker />
+        <DatePicker
+          keyboard
+          label="date picker"
+          minDate={new Date('12/26/2005')}
+        />
       </Grid>
       <Grid
         item

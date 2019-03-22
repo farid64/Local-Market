@@ -1,8 +1,9 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormTextField from '../FormTextField';
+import DateComponent from '../DateTimePicker/DateComponent';
 
 const style = theme => ({
   container: {
@@ -34,9 +35,11 @@ const CustomerUpdateForm = ({ handleSubmit, classes }) => {
         type="text"
       />
       <Field
+        keyboard
+        minDate="2/13/2005"
         label="Birthday"
         name="birthday"
-        component={FormTextField}
+        component={DateComponent}
         type="text"
       />
 
