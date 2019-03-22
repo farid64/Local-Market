@@ -1,9 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const submitAtm = (values, history) => async dispatch => {
-  const res = await axios.post('/api/transactions_atm', values);
+  const res = await axios.post("/api/transactions_atm", values);
   console.log(res.data);
 
-  history.push('/');
-  dispatch({ type: 'search_reset' });
+  history.push("/");
+  dispatch({ type: "search_reset" });
+};
+
+export const submitCustomerUpdate = (values, history) => async dispatch => {
+  const res = await axios.post("/api/customer_update", values);
+  console.log(res.data);
+
+  history.push("/");
+  dispatch({ type: "search_reset" });
 };

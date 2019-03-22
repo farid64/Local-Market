@@ -1,14 +1,15 @@
-import React from 'react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import FormTextField from '../FormTextField';
-import DateComponent from '../DateTimePicker/DateComponent';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import FormTextField from "../FormTextField";
+import FormDatePicker from "../DateTimePicker/FormDatePicker";
+import moment from "moment";
 
 const style = theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: "flex",
+    flexWrap: "wrap"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -36,11 +37,13 @@ const CustomerUpdateForm = ({ handleSubmit, classes }) => {
       />
       <Field
         keyboard
-        minDate="2/13/2005"
+        minDate={moment("10/15/2005", "MM/DD/YYYY")} //this is to get rid of warning about string conversion
+        placeholder="10/15/2010"
         label="Birthday"
         name="birthday"
-        component={DateComponent}
+        component={FormDatePicker}
         type="text"
+        normalize={value => new Date(value)}
       />
 
       <Button
@@ -57,5 +60,5 @@ const CustomerUpdateForm = ({ handleSubmit, classes }) => {
 
 export default reduxForm({
   // a unique name for the form
-  form: 'customer_update'
+  form: "customer_update"
 })(withStyles(style)(CustomerUpdateForm));
