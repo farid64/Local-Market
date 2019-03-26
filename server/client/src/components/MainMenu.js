@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 // icons import begin
@@ -18,7 +18,7 @@ import MoneyOrderIcon from '@material-ui/icons/AttachMoneyTwoTone';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-import { menuSelect, customerSelect } from '../actions';
+import { menuSelect, customerSelect, searchReset } from '../actions';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 
@@ -49,36 +49,45 @@ const styles = theme => ({
 });
 
 const routes = {
-  Retail: '/retail',
-  Face: '/face',
-  ATM: '/atm'
+  Retail: {
+    menu: 'Retail',
+    route: '/retail'
+  },
+  Face: {
+    menu: 'Face',
+    route: '/face'
+  },
+  ATM: {
+    menu: 'ATM',
+    route: '/atm'
+  }
 };
 
 class MainMenue extends Component {
   state = {
-    modalOpen: false,
-    redirectToMenuRoute: false
+    modalOpen: false
   };
 
   handleModalOpen = () => {
     this.setState({ modalOpen: true });
+    this.props.searchReset();
   };
 
   handleModalClose = () => {
-    this.setState({ modalOpen: false, redirectToMenuRoute: true });
+    this.setState({ modalOpen: false });
   };
 
   handleMenuClick = event => {
-    console.log(event.currentTarget.dataset.name);
+    const menu = event.currentTarget.dataset.name;
     this.handleModalOpen();
-    this.props.menuSelect(event.currentTarget.dataset.name);
+    this.props.menuSelect(routes[menu]);
   };
 
   render() {
     const { classes, menuSelected } = this.props;
 
-    if (this.state.redirectToMenuRoute)
-      return <Redirect to={routes[menuSelected]} />;
+    // if (this.state.redirectToMenuRoute)
+    //   return <Redirect to={routes[menuSelected]} />;
     return (
       <div className={classes.root}>
         <Grid container justify="center" spacing={40}>
@@ -229,5 +238,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { menuSelect, customerSelect }
+  { menuSelect, customerSelect, searchReset }
 )(withStyles(styles)(MainMenue));

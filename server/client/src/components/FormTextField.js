@@ -9,14 +9,14 @@ const style = theme => ({
   }
 });
 
-const FormField = ({ classes, input, label }) => {
+const FormField = ({ classes, input, label, meta: { touched, error } }) => {
   return (
     <React.Fragment>
       <TextField
-        className={classes.textField}
         {...input}
+        className={classes.textField}
         label={label}
-        variant="outlined"
+        helperText={touched && error}
       />
     </React.Fragment>
   );

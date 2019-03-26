@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -19,7 +20,12 @@ const styles = theme => ({
 
 class SearchResult extends Component {
   handleListItemClick = id => {
-    this.props.customerSelect(id);
+    const {
+      history,
+      menuSelected: { route }
+    } = this.props;
+    console.log(route);
+    this.props.customerSelect(id, history, route);
     this.props.onClose();
   };
 
@@ -49,11 +55,12 @@ class SearchResult extends Component {
 const mapStateToProps = state => {
   return {
     searchResult: state.search.searchResult,
-    searchTerm: state.search.searchTerm
+    searchTerm: state.search.searchTerm,
+    menuSelected: state.navigation.menuSelected
   };
 };
 
 export default connect(
   mapStateToProps,
   { getUser, customerSelect }
-)(withStyles(styles)(SearchResult));
+)(withRouter(withStyles(styles)(SearchResult)));

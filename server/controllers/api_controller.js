@@ -10,7 +10,6 @@ exports.index = function(req, res) {
 
 exports.user = function(req, res) {
   const { userId } = req.params;
-  console.log(req.params);
   Customer.findByPk(userId).then(result => {
     res.json(result);
   });
@@ -41,7 +40,7 @@ exports.getUsers = function(req, res) {
   });
 };
 
-exports.atm = function(req, res){
+exports.atm = function(req, res) {
   const { amount, fixedFee, feePercentage, authorization } = req.body;
   Transaction.create({
     transaction_date: Sequelize.fn('NOW'),
@@ -53,9 +52,21 @@ exports.atm = function(req, res){
       feePercentage,
       authorization
     }
-  }).then(transaction=>{
+  }).then(transaction => {
     console.log(transaction);
-    res.send("1");
+    res.send('1');
   });
 };
 
+exports.customerUpdate = function(req, res) {
+  const { lastname, firstname, birthday, phonenumber } = req.body;
+  Customer.create({
+    firstname,
+    lastname,
+    birthday,
+    phonenumber
+  }).then(customer => {
+    console.log(customer);
+    res.send(customer);
+  });
+};

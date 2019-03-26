@@ -20,8 +20,8 @@ export default function(state = INTITIAL_STATE, action) {
     case 'customer_select':
       return { ...state, customerSelected: action.payload };
     case 'search_reset':
-      return { INTITIAL_STATE };
+      return INTITIAL_STATE;
     default:
       return state;
   }
-};
+}

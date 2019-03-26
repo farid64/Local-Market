@@ -13,6 +13,9 @@ const Customer = sequelize.define(
     },
     birthday: {
       type: Sequelize.DATE
+    },
+    phonenumber: {
+      type: Sequelize.STRING
     }
   },
   {
@@ -26,5 +29,3 @@ const Customer = sequelize.define(
 Customer.sync();
 
 module.exports = Customer;
-
-

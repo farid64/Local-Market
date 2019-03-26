@@ -1,21 +1,24 @@
-import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import MoneyIcon from "@material-ui/icons/MoneyTwoTone";
-import CancelIcon from "@material-ui/icons/CancelTwoTone";
-import Divider from "@material-ui/core/Divider";
-import { Typography } from "@material-ui/core";
-import CustomerName from "./CustomerName";
-import { submitAtm } from "../actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
+import CancelIcon from '@material-ui/icons/CancelTwoTone';
+import Divider from '@material-ui/core/Divider';
+import { Typography } from '@material-ui/core';
+import CustomerName from './CustomerName';
+import { submitAtm } from '../actions';
+import FormTextField from './FormTextField';
+import FormNumberField from './FormNumberField';
 
 const styles = theme => ({
   container: {
-    display: "flex",
-    flexWrap: "wrap"
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -28,16 +31,16 @@ const styles = theme => ({
     width: 200
   },
   lineBreak: {
-    flexBasis: "100%",
+    flexBasis: '100%',
     width: 0,
     height: 0,
-    overflow: "hidden"
+    overflow: 'hidden'
   },
   text: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontWeight: "bold",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
     fontSize: 15
   },
   button: {
@@ -53,7 +56,7 @@ const styles = theme => ({
 
 class Atm extends React.Component {
   state = {
-    authorization: "",
+    authorization: '',
     amount: 0,
     fixedFee: 1,
     feePercentage: 0,
@@ -77,69 +80,48 @@ class Atm extends React.Component {
     const { classes, history } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <CustomerName />
         <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="outlined-name"
+          <Field
             label="Authorization Number"
-            style={{ width: "50%" }}
-            className={classes.textField}
-            value={this.state.Authorization}
-            onChange={this.handleChange("authorization")}
-            margin="normal"
-            variant="outlined"
+            name="authorization"
+            component={FormTextField}
+            type="text"
           />
 
           <Divider className={classes.lineBreak} />
 
-          <TextField
-            id="outlined-number"
+          <Field
             label="Amount"
-            type="number"
-            value={this.state.amount}
-            onChange={this.handleChange("amount")}
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-            variant="outlined"
+            name="amount"
+            component={FormNumberField}
+            placeholder="$1500"
+            prefix="$"
           />
 
           <Divider className={classes.lineBreak} />
 
-          <TextField
-            id="outlined-number"
+          <Field
             label="Fixed Fee"
-            type="number"
-            value={this.state.fixedFee}
-            onChange={this.handleChange("fixedFee")}
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-            variant="outlined"
+            name="fixedFee"
+            component={FormNumberField}
+            placeholder="$1500"
+            prefix="$"
           />
 
-          <TextField
-            id="outlined-number"
+          <Field
             label="Fees Percentage"
-            type="number"
-            value={this.state.feePercentage}
-            onChange={this.handleChange("feePercentage")}
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-            variant="outlined"
+            name="feesPercentage"
+            component={FormNumberField}
+            placeholder="%10"
+            prefix="%"
           />
 
           <Divider className={classes.lineBreak} />
 
           <Typography className={classes.text}>Cash To Customer:</Typography>
+
           <TextField
             id="outlined-bare"
             className={classes.textField}
@@ -160,7 +142,7 @@ class Atm extends React.Component {
           Finish and Pay
         </Button>
         <Button
-          onClick={() => history.push("/")}
+          onClick={() => history.push('/')}
           variant="contained"
           color="secondary"
           className={classes.button}
@@ -168,7 +150,7 @@ class Atm extends React.Component {
           <CancelIcon className={classes.leftIcon} />
           Cancel
         </Button>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -177,7 +159,6 @@ Atm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(
-  null,
-  { submitAtm }
-)(withRouter(withStyles(styles)(Atm)));
+export default reduxForm({
+  form: 'atm'
+})(withRouter(withStyles(styles)(Atm)));
