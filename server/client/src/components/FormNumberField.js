@@ -12,19 +12,28 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const FormNumberField = ({ label, prefix, placeholder, ...rest }) => {
+const FormNumberField = ({
+  label,
+  prefix,
+  placeholder,
+  input,
+  ReadOnly,
+  ...rest
+}) => {
   return (
     <React.Fragment>
       <TextField
-        {...rest}
+        {...input}
         label={label}
         InputProps={{
           inputComponent: NumberFormatCustom
         }}
         placeholder={placeholder}
         inputProps={{
-          prefix
+          prefix,
+          readOnly: ReadOnly
         }}
+        {...rest}
       />
     </React.Fragment>
   );

@@ -20,10 +20,10 @@ import SearchBar from '../SearchBar';
 import SearchResult from '../SearchResult';
 import MainMenu from '../MainMenu';
 import Title from './Title';
-// import Atm from '../Atm';
+import Atm from '../Atm';
 import CustomerUpdatePage from '../CustomerUpdate/CustomerUpdatePage';
 import TestGrid from '../Test Components/gridtest';
-import AtmPage from '../Atm/AtmPage';
+// import AtmPage from '../Atm/AtmPage';
 
 const drawerWidth = 240;
 
@@ -209,7 +209,7 @@ class Dashboard extends React.Component {
               )}
             />
             <Route path="/searchresult" component={SearchResult} />
-            <Route path="/atm" component={AtmPage} />
+            <Route path="/atm" component={Atm} />
             <Route path="/customer_update" component={CustomerUpdatePage} />
             <Route path="/test_grid" component={TestGrid} />
             <Route path="/face" render={() => <div>Face</div>} />

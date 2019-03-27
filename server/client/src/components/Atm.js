@@ -1,19 +1,19 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import CustomerName from './CustomerName';
-import { submitAtm } from '../actions';
 import FormTextField from './FormTextField';
 import FormNumberField from './FormNumberField';
+import nums from '../utils/convertToNumber';
 
 const styles = theme => ({
   container: {
@@ -41,7 +41,9 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
-    fontSize: 15
+    fontSize: 15,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
   button: {
     margin: theme.spacing.unit
@@ -51,42 +53,53 @@ const styles = theme => ({
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
+  },
+  cashContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   }
 });
 
 class Atm extends React.Component {
-  state = {
-    authorization: '',
-    amount: 0,
-    fixedFee: 1,
-    feePercentage: 0,
-    cash: 0
-  };
+  componentDidUpdate() {
+    this.props.autofill(
+      'cash',
+      this.props.atmValues.values
+        ? this.handleCashCalc(this.props.atmValues)
+        : ''
+    );
+  }
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-      cash: this.state.amount - this.state.fixedFee
-    });
-  };
-
-  handleSubmit = () => {
-    const values = this.state;
-    const { history } = this.props;
-    this.props.submitAtm(values, history);
+  handleCashCalc = atmValues => {
+    let { amount, fixedFee, feesPercentage } = atmValues.values;
+    amount = amount ? nums(amount) : null;
+    fixedFee = fixedFee ? nums(fixedFee) : null;
+    feesPercentage = feesPercentage ? nums(feesPercentage) : null;
+    if (amount) {
+      if (fixedFee && !feesPercentage) {
+        return amount - fixedFee;
+      } else if (!fixedFee && feesPercentage) {
+        return amount * (1 - feesPercentage / 100);
+      } else if (fixedFee && feesPercentage) {
+        return amount - _.max([fixedFee, amount * (feesPercentage / 100)]);
+      }
+    }
   };
 
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, handleSubmit } = this.props;
 
     return (
       <React.Fragment>
         <CustomerName />
-        <form className={classes.container} noValidate autoComplete="off">
+        <form className={classes.container} onSubmit={handleSubmit}>
           <Field
             label="Authorization Number"
             name="authorization"
             component={FormTextField}
+            className={classes.textField}
             type="text"
           />
 
@@ -95,6 +108,7 @@ class Atm extends React.Component {
           <Field
             label="Amount"
             name="amount"
+            className={classes.textField}
             component={FormNumberField}
             placeholder="$1500"
             prefix="$"
@@ -105,6 +119,7 @@ class Atm extends React.Component {
           <Field
             label="Fixed Fee"
             name="fixedFee"
+            className={classes.textField}
             component={FormNumberField}
             placeholder="$1500"
             prefix="$"
@@ -113,6 +128,7 @@ class Atm extends React.Component {
           <Field
             label="Fees Percentage"
             name="feesPercentage"
+            className={classes.textField}
             component={FormNumberField}
             placeholder="%10"
             prefix="%"
@@ -120,36 +136,40 @@ class Atm extends React.Component {
 
           <Divider className={classes.lineBreak} />
 
-          <Typography className={classes.text}>Cash To Customer:</Typography>
+          <div className={classes.cashContainer}>
+            <Typography className={classes.text}>Cash To Customer:</Typography>
 
-          <TextField
-            id="outlined-bare"
-            className={classes.textField}
-            placeholder=" 0.00 "
-            value={this.state.cash}
-            margin="normal"
-            variant="outlined"
-          />
+            <Field
+              name="cash"
+              className={classes.textField}
+              component={FormNumberField}
+              placeholder="$1,470"
+              prefix="$"
+              ReadOnly
+            />
+          </div>
+
+          <Divider className={classes.lineBreak} />
+
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            <MoneyIcon className={classes.leftIcon} />
+            Finish and Pay
+          </Button>
+
+          <Button
+            onClick={() => history.push('/')}
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            <CancelIcon className={classes.leftIcon} />
+            Cancel
+          </Button>
         </form>
-
-        <Button
-          onClick={this.handleSubmit}
-          variant="contained"
-          color="primary"
-          className={classes.buton}
-        >
-          <MoneyIcon className={classes.leftIcon} />
-          Finish and Pay
-        </Button>
-        <Button
-          onClick={() => history.push('/')}
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          <CancelIcon className={classes.leftIcon} />
-          Cancel
-        </Button>
       </React.Fragment>
     );
   }
@@ -159,6 +179,14 @@ Atm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default reduxForm({
+const mapStateToProps = state => {
+  return {
+    atmValues: state.form.atm
+  };
+};
+
+Atm = reduxForm({
   form: 'atm'
 })(withRouter(withStyles(styles)(Atm)));
+
+export default connect(mapStateToProps)(Atm);
