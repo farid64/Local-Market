@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import PersonIcon from '@material-ui/icons/Person';
-import blue from '@material-ui/core/colors/blue';
-import { getUser, customerSelect } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import PersonIcon from "@material-ui/icons/Person";
+import blue from "@material-ui/core/colors/blue";
+import { getUser, customerSelect } from "../actions";
 
 const styles = theme => ({
   avatar: {
@@ -26,7 +26,7 @@ class SearchResult extends Component {
     } = this.props;
     console.log(route);
     this.props.customerSelect(id, history, route);
-    this.props.onClose();
+    this.props.onClose ? this.props.onClose() : console.log("not modal");
   };
 
   render() {

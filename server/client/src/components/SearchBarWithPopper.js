@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Typography from "@material-ui/core/Typography";
 import Popper from "@material-ui/core/Popper";
 import Paper from "@material-ui/core/Paper";
@@ -9,7 +10,10 @@ import SearchResult from "./SearchResult";
 
 const styles = theme => ({
   popperStyle: {
-    zIndex: 99
+    zIndex: 1202
+  },
+  paperStyle: {
+    width: 300
   }
 });
 
@@ -41,21 +45,21 @@ class SearchBarWithPopper extends Component {
     const openPop = Boolean(anchorEl);
 
     return (
-      <React.Fragment>
-        <SearchBar forPopper={this.handlePopper} />
-        <Popper
-          open={openPop}
-          anchorEl={anchorEl}
-          placement='bottom-start'
-          onClose={this.handlePopClose.bind(this)}
-          className={classes.popperStyle}
-        >
-          <Paper>
-            <Typography>The content of the Popover.</Typography>
-            <SearchResult />
-          </Paper>
-        </Popper>
-      </React.Fragment>
+      <ClickAwayListener onClickAway={this.handlePopClose.bind(this)}>
+        <React.Fragment>
+          <SearchBar forPopper={this.handlePopper} />
+          <Popper
+            open={openPop}
+            anchorEl={anchorEl}
+            placement='bottom-start'
+            className={classes.popperStyle}
+          >
+            <Paper className={classes.paperStyle} square>
+              <SearchResult />
+            </Paper>
+          </Popper>
+        </React.Fragment>
+      </ClickAwayListener>
     );
   }
 }
