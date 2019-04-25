@@ -1,8 +1,5 @@
 const INITIAL_STATE = {
-  menuSelected: {
-    menu: 'main menu',
-    route: '/'
-  }
+  menuSelected: '/'
 };
 
 export default function(state = INITIAL_STATE, action) {

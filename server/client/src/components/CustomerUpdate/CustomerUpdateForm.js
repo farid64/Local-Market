@@ -61,6 +61,7 @@ const CustomerUpdateForm = ({ handleSubmit, classes }) => {
         name="phonenumber"
         placeholder="(555) 555-5555"
         component={FormPhoneNumber}
+        normalize={value => value.replace(/[^0-9]/gi, '')}
       />
 
       <Button

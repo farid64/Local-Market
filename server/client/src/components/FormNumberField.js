@@ -18,6 +18,7 @@ const FormNumberField = ({
   placeholder,
   input,
   ReadOnly,
+  meta: { touched, error },
   ...rest
 }) => {
   return (
@@ -33,6 +34,7 @@ const FormNumberField = ({
           prefix,
           readOnly: ReadOnly
         }}
+        helperText={touched && error}
         {...rest}
       />
     </React.Fragment>

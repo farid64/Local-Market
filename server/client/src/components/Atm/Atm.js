@@ -10,10 +10,9 @@ import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
-import CustomerName from './CustomerName';
-import FormTextField from './FormTextField';
-import FormNumberField from './FormNumberField';
-import nums from '../utils/convertToNumber';
+import FormTextField from '../FormTextField';
+import FormNumberField from '../FormNumberField';
+import nums from '../../utils/convertToNumber';
 
 const styles = theme => ({
   container: {
@@ -74,9 +73,9 @@ class Atm extends React.Component {
 
   handleCashCalc = atmValues => {
     let { amount, fixedFee, feesPercentage } = atmValues.values;
-    amount = amount ? nums(amount) : null;
-    fixedFee = fixedFee ? nums(fixedFee) : null;
-    feesPercentage = feesPercentage ? nums(feesPercentage) : null;
+    amount = amount ? amount : null;
+    fixedFee = fixedFee ? fixedFee : null;
+    feesPercentage = feesPercentage ? feesPercentage : null;
     if (amount) {
       if (fixedFee && !feesPercentage) {
         return amount - fixedFee;
@@ -93,7 +92,6 @@ class Atm extends React.Component {
 
     return (
       <React.Fragment>
-        <CustomerName />
         <form className={classes.container} onSubmit={handleSubmit}>
           <Field
             label="Authorization Number"
@@ -112,6 +110,7 @@ class Atm extends React.Component {
             component={FormNumberField}
             placeholder="$1500"
             prefix="$"
+            normalize={value => nums(value)}
           />
 
           <Divider className={classes.lineBreak} />
@@ -123,6 +122,7 @@ class Atm extends React.Component {
             component={FormNumberField}
             placeholder="$1500"
             prefix="$"
+            normalize={value => nums(value)}
           />
 
           <Field
@@ -132,6 +132,7 @@ class Atm extends React.Component {
             component={FormNumberField}
             placeholder="%10"
             prefix="%"
+            normalize={value => nums(value)}
           />
 
           <Divider className={classes.lineBreak} />
@@ -152,6 +153,7 @@ class Atm extends React.Component {
           <Divider className={classes.lineBreak} />
 
           <Button
+            type="submit"
             variant="contained"
             color="primary"
             className={classes.button}
@@ -175,6 +177,24 @@ class Atm extends React.Component {
   }
 }
 
+function validate(values) {
+  const errors = {};
+  if (!values.authorization) {
+    errors.authorization = 'You must provide a value';
+  }
+  if (!values.fixedFee) {
+    errors.fixedFee = 'You must provide a value';
+  }
+  if (!values.feesPercentage) {
+    errors.feesPercentage = 'You must provide a value';
+  }
+  if (!values.amount) {
+    errors.amount = 'You must provide a value';
+  }
+
+  return errors;
+}
+
 Atm.propTypes = {
   classes: PropTypes.object.isRequired
 };
@@ -186,6 +206,7 @@ const mapStateToProps = state => {
 };
 
 Atm = reduxForm({
+  validate,
   form: 'atm'
 })(withRouter(withStyles(styles)(Atm)));
 

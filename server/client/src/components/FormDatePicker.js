@@ -11,6 +11,8 @@ function FormDatePicker({ input: { onChange, value }, ...rest }) {
       mask={value =>
         value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : []
       }
+      openTo="year"
+      views={['year', 'month', 'day']}
       {...rest}
     />
   );

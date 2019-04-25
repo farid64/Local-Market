@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { history } from 'react-router-dom';
-import AtmForm from './Atm.1.Form';
+import AtmForm from './Atm';
 import { submitAtm } from '../../actions';
 
-const submit = values => {
-  console.log(values);
-};
+class AtmPage extends Component {
+  submit = values => {
+    console.log(values);
+  };
+  render() {
+    return <AtmForm onSubmit={this.submit} />;
+  }
+}
 
-const AtmPage = () => {
-  return <AtmForm onSubmit={submit} />;
-};
-
-export default AtmPage;
+export default connect(
+  null,
+  { submitAtm }
+)(AtmPage);

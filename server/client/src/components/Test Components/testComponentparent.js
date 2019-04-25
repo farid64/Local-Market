@@ -1,10 +1,12 @@
-import React, { Component } from "react";
-import Child from "./testComponentChild";
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import Child from './testComponentChild';
+import Child2 from '../FormSelectField';
 
 class componentWrapper extends Component {
   handleChildData = data => {
     console.log(data);
-    return <div>{data ? data : "this is wrong"}</div>;
+    return <div>{data ? data : 'this is wrong'}</div>;
   };
   render() {
     return (
@@ -16,4 +18,6 @@ class componentWrapper extends Component {
   }
 }
 
-export default componentWrapper;
+export default reduxForm({
+  form: 'test'
+})(componentWrapper);

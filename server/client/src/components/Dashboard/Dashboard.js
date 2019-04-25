@@ -1,51 +1,53 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { mainListItems, secondaryListItems } from "./listItems";
-import SimpleLineChart from "./SimpleLineChart";
-import SimpleTable from "./SimpleTable";
-import SearchBar from "../SearchBar";
-import SearchResult from "../SearchResult";
-import MainMenu from "../MainMenu";
-import Title from "./Title";
-import Atm from "../Atm";
-import CustomerUpdatePage from "../CustomerUpdate/CustomerUpdatePage";
+import React from 'react';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import teal from '@material-ui/core/colors/teal';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { mainListItems, secondaryListItems } from './listItems';
+import SimpleLineChart from './SimpleLineChart';
+import SimpleTable from './SimpleTable';
+import SearchResult from '../SearchResult';
+import MainMenu from '../Main Menu/MainMenu';
+import Title from './Title';
+import AtmPage from '../Atm/AtmPage';
+import CustomerUpdatePage from '../CustomerUpdate/CustomerUpdatePage';
+import MoneyOrderPage from '../Money Order/MoneyOrderPage';
 // import TestGrid from "../Test Components/gridtest";
-import testComponentparent from "../Test Components/testComponentparent";
-import SearchBarWithPopper from "../SearchBarWithPopper";
+import testComponentparent from '../Test Components/testComponentparent';
+import SearchBarWithPopper from '../SearchBarWithPopper';
+import AddCustomerButton from '../AddNewCustomerButton';
 // import AtmPage from '../Atm/AtmPage';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex'
   },
   toolbar: {
     paddingRight: 24 // keep right padding when drawer closed
   },
   toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
     ...theme.mixins.toolbar
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
@@ -53,7 +55,7 @@ const styles = theme => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
@@ -62,29 +64,38 @@ const styles = theme => ({
     marginLeft: 12,
     marginRight: 36
   },
+  addCustomerButton: {
+    marginRight: 5,
+    marginLeft: 5,
+    textDecoration: 'none'
+  },
+  addCustomerIcon: {
+    fontSize: 30,
+    color: 'white'
+  },
   menuButtonHidden: {
-    display: "none"
+    display: 'none'
   },
   title: {
     flexGrow: 1
   },
   drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
   },
   drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
     width: theme.spacing.unit * 7,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9
     }
   },
@@ -92,8 +103,8 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    height: "100vh",
-    overflow: "auto"
+    height: '100vh',
+    overflow: 'auto'
   },
   chartContainer: {
     marginLeft: -22
@@ -127,7 +138,7 @@ class Dashboard extends React.Component {
         <div className={classes.root}>
           <CssBaseline />
           <AppBar
-            position='absolute'
+            position="absolute"
             className={classNames(
               classes.appBar,
               this.state.open && classes.appBarShift
@@ -138,8 +149,8 @@ class Dashboard extends React.Component {
               className={classes.toolbar}
             >
               <IconButton
-                color='inherit'
-                aria-label='Open drawer'
+                color="inherit"
+                aria-label="Open drawer"
                 onClick={this.handleDrawerOpen}
                 className={classNames(
                   classes.menuButton,
@@ -150,11 +161,16 @@ class Dashboard extends React.Component {
               </IconButton>
 
               <Title />
+              <AddCustomerButton
+                color={teal[50]}
+                fontSize="30"
+                style={{ marginRight: -20 }}
+              />
               <SearchBarWithPopper />
             </Toolbar>
           </AppBar>
           <Drawer
-            variant='permanent'
+            variant="permanent"
             classes={{
               paper: classNames(
                 classes.drawerPaper,
@@ -179,17 +195,17 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
 
-            <Route exact path='/' component={MainMenu} />
+            <Route exact path="/" component={MainMenu} />
 
             <Route
-              path='/linechart'
+              path="/linechart"
               render={() => (
                 <div>
-                  <Typography variant='h4' gutterBottom component='h2'>
+                  <Typography variant="h4" gutterBottom component="h2">
                     Orders
                   </Typography>
                   <Typography
-                    component='div'
+                    component="div"
                     className={classes.chartContainer}
                   >
                     <SimpleLineChart />
@@ -198,10 +214,10 @@ class Dashboard extends React.Component {
               )}
             />
             <Route
-              path='/table'
+              path="/table"
               render={() => (
                 <div>
-                  <Typography variant='h4' gutterBottom component='h2'>
+                  <Typography variant="h4" gutterBottom component="h2">
                     Products
                   </Typography>
                   <div className={classes.tableContainer}>
@@ -210,11 +226,12 @@ class Dashboard extends React.Component {
                 </div>
               )}
             />
-            <Route path='/searchresult' component={SearchResult} />
-            <Route path='/atm' component={Atm} />
-            <Route path='/customer_update' component={CustomerUpdatePage} />
-            <Route path='/test_grid' component={testComponentparent} />
-            <Route path='/face' render={() => <div>Face</div>} />
+            <Route path="/searchresult" component={SearchResult} />
+            <Route path="/atm" component={AtmPage} />
+            <Route path="/customer_update" component={CustomerUpdatePage} />
+            <Route path="/test_grid" component={testComponentparent} />
+            <Route path="/face" render={() => <div>Face</div>} />
+            <Route path="/money-order" component={MoneyOrderPage} />
           </main>
         </div>
       </BrowserRouter>

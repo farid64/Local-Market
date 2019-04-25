@@ -35,7 +35,12 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired
 };
 
-const FormPhoneNumber = ({ input, label, placeholder }) => {
+const FormPhoneNumber = ({
+  input,
+  label,
+  placeholder,
+  meta: { touched, error }
+}) => {
   return (
     <React.Fragment>
       <TextField
@@ -45,6 +50,7 @@ const FormPhoneNumber = ({ input, label, placeholder }) => {
           inputComponent: TextMaskCustom
         }}
         placeholder={placeholder}
+        helperText={touched && error}
       />
     </React.Fragment>
   );

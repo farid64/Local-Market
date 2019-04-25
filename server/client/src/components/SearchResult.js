@@ -20,12 +20,8 @@ const styles = theme => ({
 
 class SearchResult extends Component {
   handleListItemClick = id => {
-    const {
-      history,
-      menuSelected: { route }
-    } = this.props;
-    console.log(route);
-    this.props.customerSelect(id, history, route);
+    const { history, menuSelectedRoute } = this.props;
+    this.props.customerSelect(id, history, menuSelectedRoute);
     this.props.onClose();
   };
 
@@ -56,7 +52,7 @@ const mapStateToProps = state => {
   return {
     searchResult: state.search.searchResult,
     searchTerm: state.search.searchTerm,
-    menuSelected: state.navigation.menuSelected
+    menuSelectedRoute: state.navigation.menuSelected
   };
 };
 
