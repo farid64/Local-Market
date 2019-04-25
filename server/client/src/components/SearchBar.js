@@ -54,6 +54,9 @@ class SearchBar extends Component {
     const { value } = event.target;
     this.props.searchTermChange(value);
     this.props.getUser(value);
+    // this.setState({
+    //   anchorEl: event.currentTarget
+    // });
     if (this.props.forPopper) {
       this.props.forPopper(event.currentTarget, Boolean(value));
     }
