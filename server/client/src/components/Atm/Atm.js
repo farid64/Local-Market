@@ -1,23 +1,23 @@
-import React from 'react';
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
-import CancelIcon from '@material-ui/icons/CancelTwoTone';
-import Divider from '@material-ui/core/Divider';
-import { Typography } from '@material-ui/core';
-import FormTextField from '../FormTextField';
-import FormNumberField from '../FormNumberField';
-import nums from '../../utils/convertToNumber';
+import React from "react";
+import _ from "lodash";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import MoneyIcon from "@material-ui/icons/MoneyTwoTone";
+import CancelIcon from "@material-ui/icons/CancelTwoTone";
+import Divider from "@material-ui/core/Divider";
+import { Typography } from "@material-ui/core";
+import FormTextField from "../FormTextField";
+import FormNumberField from "../FormNumberField";
+import nums from "../../utils/convertToNumber";
 
 const styles = theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: "flex",
+    flexWrap: "wrap"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -30,16 +30,16 @@ const styles = theme => ({
     width: 200
   },
   lineBreak: {
-    flexBasis: '100%',
+    flexBasis: "100%",
     width: 0,
     height: 0,
-    overflow: 'hidden'
+    overflow: "hidden"
   },
   text: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontWeight: 'bold',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontWeight: "bold",
     fontSize: 15,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -54,8 +54,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit
   },
   cashContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit
   }
@@ -64,25 +64,25 @@ const styles = theme => ({
 class Atm extends React.Component {
   componentDidUpdate() {
     this.props.autofill(
-      'cash',
+      "cash",
       this.props.atmValues.values
         ? this.handleCashCalc(this.props.atmValues)
-        : ''
+        : ""
     );
   }
 
   handleCashCalc = atmValues => {
-    let { amount, fixedFee, feesPercentage } = atmValues.values;
+    let { amount, fixedFee, feePercentage } = atmValues.values;
     amount = amount ? amount : null;
     fixedFee = fixedFee ? fixedFee : null;
-    feesPercentage = feesPercentage ? feesPercentage : null;
+    feePercentage = feePercentage ? feePercentage : null;
     if (amount) {
-      if (fixedFee && !feesPercentage) {
+      if (fixedFee && !feePercentage) {
         return amount - fixedFee;
-      } else if (!fixedFee && feesPercentage) {
-        return amount * (1 - feesPercentage / 100);
-      } else if (fixedFee && feesPercentage) {
-        return amount - _.max([fixedFee, amount * (feesPercentage / 100)]);
+      } else if (!fixedFee && feePercentage) {
+        return amount * (1 - feePercentage / 100);
+      } else if (fixedFee && feePercentage) {
+        return amount - _.max([fixedFee, amount * (feePercentage / 100)]);
       }
     }
   };
@@ -94,44 +94,44 @@ class Atm extends React.Component {
       <React.Fragment>
         <form className={classes.container} onSubmit={handleSubmit}>
           <Field
-            label="Authorization Number"
-            name="authorization"
+            label='Authorization Number'
+            name='authorization'
             component={FormTextField}
             className={classes.textField}
-            type="text"
+            type='text'
           />
 
           <Divider className={classes.lineBreak} />
 
           <Field
-            label="Amount"
-            name="amount"
+            label='Amount'
+            name='amount'
             className={classes.textField}
             component={FormNumberField}
-            placeholder="$1500"
-            prefix="$"
+            placeholder='$1500'
+            prefix='$'
             normalize={value => nums(value)}
           />
 
           <Divider className={classes.lineBreak} />
 
           <Field
-            label="Fixed Fee"
-            name="fixedFee"
+            label='Fixed Fee'
+            name='fixedFee'
             className={classes.textField}
             component={FormNumberField}
-            placeholder="$1500"
-            prefix="$"
+            placeholder='$1500'
+            prefix='$'
             normalize={value => nums(value)}
           />
 
           <Field
-            label="Fees Percentage"
-            name="feesPercentage"
+            label='Fee Percentage'
+            name='feePercentage'
             className={classes.textField}
             component={FormNumberField}
-            placeholder="%10"
-            prefix="%"
+            placeholder='%10'
+            prefix='%'
             normalize={value => nums(value)}
           />
 
@@ -141,11 +141,11 @@ class Atm extends React.Component {
             <Typography className={classes.text}>Cash To Customer:</Typography>
 
             <Field
-              name="cash"
+              name='cash'
               className={classes.textField}
               component={FormNumberField}
-              placeholder="$1,470"
-              prefix="$"
+              placeholder='$1,470'
+              prefix='$'
               ReadOnly
             />
           </div>
@@ -153,9 +153,9 @@ class Atm extends React.Component {
           <Divider className={classes.lineBreak} />
 
           <Button
-            type="submit"
-            variant="contained"
-            color="primary"
+            type='submit'
+            variant='contained'
+            color='primary'
             className={classes.button}
           >
             <MoneyIcon className={classes.leftIcon} />
@@ -163,9 +163,9 @@ class Atm extends React.Component {
           </Button>
 
           <Button
-            onClick={() => history.push('/')}
-            variant="contained"
-            color="secondary"
+            onClick={() => history.push("/")}
+            variant='contained'
+            color='secondary'
             className={classes.button}
           >
             <CancelIcon className={classes.leftIcon} />
@@ -180,16 +180,16 @@ class Atm extends React.Component {
 function validate(values) {
   const errors = {};
   if (!values.authorization) {
-    errors.authorization = 'You must provide a value';
+    errors.authorization = "You must provide a value";
   }
   if (!values.fixedFee) {
-    errors.fixedFee = 'You must provide a value';
+    errors.fixedFee = "You must provide a value";
   }
-  if (!values.feesPercentage) {
-    errors.feesPercentage = 'You must provide a value';
+  if (!values.feePercentage) {
+    errors.feePercentage = "You must provide a value";
   }
   if (!values.amount) {
-    errors.amount = 'You must provide a value';
+    errors.amount = "You must provide a value";
   }
 
   return errors;
@@ -207,7 +207,7 @@ const mapStateToProps = state => {
 
 Atm = reduxForm({
   validate,
-  form: 'atm'
+  form: "atm"
 })(withRouter(withStyles(styles)(Atm)));
 
 export default connect(mapStateToProps)(Atm);

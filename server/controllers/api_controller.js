@@ -1,11 +1,11 @@
-const Sequelize = require('sequelize');
-const Customer = require('../models/customer_model');
-const Transaction = require('../models/transaction_model');
+const Sequelize = require("sequelize");
+const Customer = require("../models/customer_model");
+const Transaction = require("../models/transaction_model");
 
 const Op = Sequelize.Op;
 
 exports.index = function(req, res) {
-  res.json({ farid: 'salam bar shoma' });
+  res.json({ farid: "salam bar shoma" });
 };
 
 exports.user = function(req, res) {
@@ -22,9 +22,9 @@ exports.createUser = function(req, res) {
 
 exports.getUsers = function(req, res) {
   const { info } = req.body;
-  const infoArr = info.split(' ');
+  const infoArr = info.split(" ");
   const fn = infoArr[0];
-  const ln = infoArr[1] ? infoArr[1] : '';
+  const ln = infoArr[1] ? infoArr[1] : "";
 
   Customer.findAll({
     where: {
@@ -43,10 +43,10 @@ exports.getUsers = function(req, res) {
 exports.atm = function(req, res) {
   const { amount, fixedFee, feePercentage, authorization } = req.body;
   Transaction.create({
-    transaction_date: Sequelize.fn('NOW'),
+    transaction_date: Sequelize.fn("NOW"),
     amount,
-    transaction_type: 'ATM',
-    transaction_category: '',
+    transaction_type: "ATM",
+    transaction_category: "",
     details: {
       fixedFee,
       feePercentage,
@@ -54,7 +54,23 @@ exports.atm = function(req, res) {
     }
   }).then(transaction => {
     console.log(transaction);
-    res.send('1');
+    res.send("1");
+  });
+};
+
+exports.moneyOrder = function(req, res) {
+  const { totalAmount, moneyOrders } = req.body;
+  Transaction.create({
+    transaction_date: Sequelize.fn("NOW"),
+    amount: totalAmount,
+    transaction_type: "MONEY_ORDER",
+    transaction_category: "",
+    details: {
+      moneyOrders
+    }
+  }).then(transaction => {
+    console.log(transaction);
+    res.send("1");
   });
 };
 
