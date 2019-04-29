@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from './SearchBar';

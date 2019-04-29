@@ -15,8 +15,8 @@ import { withStyles } from '@material-ui/core/styles';
 // import AtmIcon from '@material-ui/icons/LocalAtmTwoTone';
 // import MoneyOrderIcon from '@material-ui/icons/AttachMoneyTwoTone';
 // icons import end
-import Paper from '@material-ui/core/Paper';
-import { Typography, Button } from '@material-ui/core';
+// import Paper from '@material-ui/core/Paper';
+// import { Typography, Button } from '@material-ui/core';
 import orange from '@material-ui/core/colors/orange';
 import Modal from '@material-ui/core/Modal';
 import { menuSelect, customerSelect, searchReset } from '../../actions';
@@ -160,9 +160,9 @@ class MainMenue extends Component {
     this.setState({ modalOpen: false });
   };
 
-  handleMenuClick = event => {
-    const { route, customer } = event.currentTarget.dataset;
-    if (customer === 'true') {
+  handleMenuClick = (event, name, route, customer) => {
+    // const { route, customer, test } = event.currentTarget.dataset;
+    if (customer) {
       this.handleModalOpen();
       this.props.menuSelect(route);
     } else {
@@ -171,7 +171,7 @@ class MainMenue extends Component {
   };
 
   render() {
-    const { classes, menuSelected } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -179,19 +179,23 @@ class MainMenue extends Component {
           {menus.map((menuItem, index) => {
             return (
               <Grid key={index} item lg={3} md={6} xs={12}>
-                <Paper className={classes.paper}>
-                  <Tooltip title={menuItem.label} placement="top">
-                    <ButtonBase
-                      aria-label={menuItem.label}
-                      data-name={menuItem.label}
-                      data-route={menuItem.route}
-                      data-customer={menuItem.needCustomer}
-                      onClick={this.handleMenuClick.bind(this)}
-                    >
-                      <img alt={menuItem.label} src={menuItem.imgComp} />
-                    </ButtonBase>
-                  </Tooltip>
-                </Paper>
+                {/* <Paper className={classes.paper}> */}
+                <Tooltip title={menuItem.label} placement="top">
+                  <ButtonBase
+                    aria-label={menuItem.label}
+                    onClick={event =>
+                      this.handleMenuClick(
+                        event,
+                        menuItem.label,
+                        menuItem.route,
+                        menuItem.needCustomer
+                      )
+                    }
+                  >
+                    <img alt={menuItem.label} src={menuItem.imgComp} />
+                  </ButtonBase>
+                </Tooltip>
+                {/* </Paper> */}
               </Grid>
             );
           })}
@@ -218,7 +222,6 @@ class MainMenue extends Component {
 
 const mapStateToProps = state => {
   return {
-    menuSelected: state.search.menuSelected,
     customerSelected: state.search.customerSelected
   };
 };

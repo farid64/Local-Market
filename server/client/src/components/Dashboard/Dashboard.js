@@ -21,6 +21,7 @@ import SearchResult from '../SearchResult';
 import MainMenu from '../Main Menu/MainMenu';
 import Title from './Title';
 import AtmPage from '../Atm/AtmPage';
+import EbtPage from '../Ebt/EbtPage';
 import CustomerUpdatePage from '../CustomerUpdate/CustomerUpdatePage';
 import MoneyOrderPage from '../Money Order/MoneyOrderPage';
 // import TestGrid from "../Test Components/gridtest";
@@ -228,6 +229,7 @@ class Dashboard extends React.Component {
             />
             <Route path="/searchresult" component={SearchResult} />
             <Route path="/atm" component={AtmPage} />
+            <Route path="/ebt" component={EbtPage} />
             <Route path="/customer_update" component={CustomerUpdatePage} />
             <Route path="/test_grid" component={testComponentparent} />
             <Route path="/face" render={() => <div>Face</div>} />

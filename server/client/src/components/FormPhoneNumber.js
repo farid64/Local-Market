@@ -39,7 +39,8 @@ const FormPhoneNumber = ({
   input,
   label,
   placeholder,
-  meta: { touched, error }
+  meta: { touched, error },
+  ...rest
 }) => {
   return (
     <React.Fragment>
@@ -51,6 +52,7 @@ const FormPhoneNumber = ({
         }}
         placeholder={placeholder}
         helperText={touched && error}
+        {...rest}
       />
     </React.Fragment>
   );

@@ -9,7 +9,13 @@ const style = theme => ({
   }
 });
 
-const FormField = ({ classes, input, label, meta: { touched, error } }) => {
+const FormField = ({
+  classes,
+  input,
+  label,
+  meta: { touched, error },
+  ...rest
+}) => {
   return (
     <React.Fragment>
       <TextField
@@ -17,6 +23,7 @@ const FormField = ({ classes, input, label, meta: { touched, error } }) => {
         className={classes.textField}
         label={label}
         helperText={touched && error}
+        {...rest}
       />
     </React.Fragment>
   );
