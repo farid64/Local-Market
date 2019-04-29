@@ -94,6 +94,24 @@ exports.moneyOrder = function(req, res) {
   });
 };
 
+exports.receiveMoney = function(req, res) {
+  const { amount, moneyTransferOrg, RefNum, comment } = req.body;
+  Transaction.create({
+    transaction_date: Sequelize.fn('NOW'),
+    amount,
+    transaction_type: 'RECEIVE_MONEY',
+    transaction_category: '',
+    details: {
+      moneyTransferOrg,
+      RefNum,
+      comment
+    }
+  }).then(transaction => {
+    console.log(transaction);
+    res.send(transaction);
+  });
+};
+
 exports.customerUpdate = function(req, res) {
   const { lastname, firstname, birthday, phonenumber } = req.body;
   Customer.create({

@@ -24,6 +24,14 @@ export const submitMoneyOrder = (values, history) => async dispatch => {
   dispatch({ type: 'search_reset' });
 };
 
+export const submitReceiveMoney = (values, history) => async dispatch => {
+  const res = await axios.post('/api/transactions_receive_money', values);
+  console.log(res.data);
+
+  history.push('/');
+  dispatch({ type: 'search_reset' });
+};
+
 export const submitEbt = (values, history) => async dispatch => {
   const res = await axios.post('/api/transactions_ebt', values);
   console.log(res.data);

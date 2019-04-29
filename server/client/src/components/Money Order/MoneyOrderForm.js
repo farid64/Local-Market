@@ -1,26 +1,26 @@
-import React from "react";
-import _ from "lodash";
-import { connect } from "react-redux";
-import classNames from "classnames";
-import { Field, FieldArray, reduxForm } from "redux-form";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import MoneyIcon from "@material-ui/icons/MoneyTwoTone";
-import CancelIcon from "@material-ui/icons/CancelTwoTone";
-import Divider from "@material-ui/core/Divider";
-import { Typography } from "@material-ui/core";
-import CustomerName from "../CustomerName";
-import FormTextField from "../FormTextField";
-import FormNumberField from "../FormNumberField";
-import FormSelectField from "../FormSelectField";
-import nums from "../../utils/convertToNumber";
+import React from 'react';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import { Field, FieldArray, reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import MoneyIcon from '@material-ui/icons/MoneyTwoTone';
+import CancelIcon from '@material-ui/icons/CancelTwoTone';
+import Divider from '@material-ui/core/Divider';
+import { Typography } from '@material-ui/core';
+import CustomerName from '../CustomerName';
+import FormTextField from '../FormTextField';
+import FormNumberField from '../FormNumberField';
+import FormSelectField from '../FormSelectField';
+import nums from '../../utils/convertToNumber';
 
 const styles = theme => ({
   container: {
-    display: "flex",
-    flexWrap: "wrap"
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -33,16 +33,16 @@ const styles = theme => ({
     width: 200
   },
   lineBreak: {
-    flexBasis: "100%",
+    flexBasis: '100%',
     width: 0,
     height: 0,
-    overflow: "hidden"
+    overflow: 'hidden'
   },
   text: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontWeight: "bold",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
     fontSize: 15,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -57,15 +57,15 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit
   },
   cashContainer: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit
   },
   formLineContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "100%",
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%',
     marginBottom: 20
   },
   formLineItem1: {
@@ -85,10 +85,10 @@ const styles = theme => ({
 class MoneyOrder extends React.Component {
   componentDidUpdate() {
     this.props.autofill(
-      "totalAmount",
+      'totalAmount',
       this.props.moneyorderValues.values
         ? this.handleTotalAmountCalc(this.props.moneyorderValues)
-        : ""
+        : ''
     );
   }
 
@@ -189,7 +189,7 @@ class MoneyOrder extends React.Component {
           </Button>
 
           <Button
-            onClick={() => history.push("/")}
+            onClick={() => history.push('/')}
             variant='contained'
             color='secondary'
             className={classes.button}
@@ -209,12 +209,12 @@ MoneyOrder.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    moneyorderValues: state.form.moneyOrder
+    moneyorderValues: state.form.money_order
   };
 };
 
 MoneyOrder = reduxForm({
-  form: "moneyOrder"
+  form: 'money_order'
 })(withRouter(withStyles(styles)(MoneyOrder)));
 
 export default connect(mapStateToProps)(MoneyOrder);

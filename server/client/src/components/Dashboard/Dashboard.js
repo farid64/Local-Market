@@ -28,6 +28,7 @@ import MoneyOrderPage from '../Money Order/MoneyOrderPage';
 import testComponentparent from '../Test Components/testComponentparent';
 import SearchBarWithPopper from '../SearchBarWithPopper';
 import AddCustomerButton from '../AddNewCustomerButton';
+import ReceiveMoneyPage from '../Receive Money/ReceiveMoneyPage';
 // import AtmPage from '../Atm/AtmPage';
 
 const drawerWidth = 240;
@@ -139,7 +140,7 @@ class Dashboard extends React.Component {
         <div className={classes.root}>
           <CssBaseline />
           <AppBar
-            position="absolute"
+            position='absolute'
             className={classNames(
               classes.appBar,
               this.state.open && classes.appBarShift
@@ -150,8 +151,8 @@ class Dashboard extends React.Component {
               className={classes.toolbar}
             >
               <IconButton
-                color="inherit"
-                aria-label="Open drawer"
+                color='inherit'
+                aria-label='Open drawer'
                 onClick={this.handleDrawerOpen}
                 className={classNames(
                   classes.menuButton,
@@ -164,14 +165,14 @@ class Dashboard extends React.Component {
               <Title />
               <AddCustomerButton
                 color={teal[50]}
-                fontSize="30"
+                fontSize='30'
                 style={{ marginRight: -20 }}
               />
               <SearchBarWithPopper />
             </Toolbar>
           </AppBar>
           <Drawer
-            variant="permanent"
+            variant='permanent'
             classes={{
               paper: classNames(
                 classes.drawerPaper,
@@ -196,17 +197,17 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
 
-            <Route exact path="/" component={MainMenu} />
+            <Route exact path='/' component={MainMenu} />
 
             <Route
-              path="/linechart"
+              path='/linechart'
               render={() => (
                 <div>
-                  <Typography variant="h4" gutterBottom component="h2">
+                  <Typography variant='h4' gutterBottom component='h2'>
                     Orders
                   </Typography>
                   <Typography
-                    component="div"
+                    component='div'
                     className={classes.chartContainer}
                   >
                     <SimpleLineChart />
@@ -215,10 +216,10 @@ class Dashboard extends React.Component {
               )}
             />
             <Route
-              path="/table"
+              path='/table'
               render={() => (
                 <div>
-                  <Typography variant="h4" gutterBottom component="h2">
+                  <Typography variant='h4' gutterBottom component='h2'>
                     Products
                   </Typography>
                   <div className={classes.tableContainer}>
@@ -227,13 +228,14 @@ class Dashboard extends React.Component {
                 </div>
               )}
             />
-            <Route path="/searchresult" component={SearchResult} />
-            <Route path="/atm" component={AtmPage} />
-            <Route path="/ebt" component={EbtPage} />
-            <Route path="/customer_update" component={CustomerUpdatePage} />
-            <Route path="/test_grid" component={testComponentparent} />
-            <Route path="/face" render={() => <div>Face</div>} />
-            <Route path="/money-order" component={MoneyOrderPage} />
+            <Route path='/searchresult' component={SearchResult} />
+            <Route path='/atm' component={AtmPage} />
+            <Route path='/ebt' component={EbtPage} />
+            <Route path='/customer_update' component={CustomerUpdatePage} />
+            <Route path='/test_grid' component={testComponentparent} />
+            <Route path='/face' render={() => <div>Face</div>} />
+            <Route path='/money-order' component={MoneyOrderPage} />
+            <Route path='/receive-money' component={ReceiveMoneyPage} />
           </main>
         </div>
       </BrowserRouter>

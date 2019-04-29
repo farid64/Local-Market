@@ -20,9 +20,9 @@ const Transaction = sequelize.define(
         'ATM',
         'EBT',
         'BILL_PAYMENT',
-        'RECEIVED_MONEY',
+        'RECEIVE_MONEY',
         'OTHER_SALE'
-        )
+      )
     },
     transaction_category: {
       type: Sequelize.STRING

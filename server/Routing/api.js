@@ -10,5 +10,6 @@ router.post('/users', api_controller.getUsers);
 router.post('/transactions_atm', api_controller.atm);
 router.post('/transactions_ebt', api_controller.ebt);
 router.post('/transactions_money_order', api_controller.moneyOrder);
+router.post('/transactions_receive_money', api_controller.receiveMoney);
 router.post('/customer_update', api_controller.customerUpdate);
 module.exports = router;

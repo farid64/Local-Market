@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import AtmForm from "./Atm";
-import { submitAtm } from "../../actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import AtmForm from './Atm';
+import { submitAtm } from '../../actions';
 
 class AtmPage extends Component {
   submit = values => {
