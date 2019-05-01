@@ -13,10 +13,11 @@ const styles = theme => ({
 });
 
 const FormField = ({ classes, input, label, children, ...rest }) => {
+  console.log(children);
   return (
     <React.Fragment>
       <FormControl className={classes.formControl} {...rest}>
-        <InputLabel htmlFor="age-simple">{label}</InputLabel>
+        <InputLabel htmlFor='age-simple'>{label}</InputLabel>
         <Select {...input}>
           {children.map((item, index) => {
             return (

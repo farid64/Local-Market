@@ -29,6 +29,7 @@ import testComponentparent from '../Test Components/testComponentparent';
 import SearchBarWithPopper from '../SearchBarWithPopper';
 import AddCustomerButton from '../AddNewCustomerButton';
 import ReceiveMoneyPage from '../Receive Money/ReceiveMoneyPage';
+import BillPayPage from '../Bill Pay/BillPayPage';
 // import AtmPage from '../Atm/AtmPage';
 
 const drawerWidth = 240;
@@ -236,6 +237,7 @@ class Dashboard extends React.Component {
             <Route path='/face' render={() => <div>Face</div>} />
             <Route path='/money-order' component={MoneyOrderPage} />
             <Route path='/receive-money' component={ReceiveMoneyPage} />
+            <Route path='/bill-pay' component={BillPayPage} />
           </main>
         </div>
       </BrowserRouter>
