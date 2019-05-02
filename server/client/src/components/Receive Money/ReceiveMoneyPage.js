@@ -6,6 +6,7 @@ import { submitReceiveMoney } from '../../actions';
 
 class ReceiveMoneyPage extends Component {
   submit = values => {
+    values.customerId = this.props.customerSelected.id;
     console.log(values);
     this.props.submitReceiveMoney(values, this.props.history);
   };
@@ -14,7 +15,13 @@ class ReceiveMoneyPage extends Component {
   }
 }
 
+const mapSateToProps = state => {
+  return {
+    customerSelected: state.search.customerSelected
+  }
+}
+
 export default connect(
-  null,
+  mapSateToProps,
   { submitReceiveMoney }
 )(withRouter(ReceiveMoneyPage));

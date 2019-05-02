@@ -95,8 +95,10 @@ exports.moneyOrder = function(req, res) {
 };
 
 exports.receiveMoney = function(req, res) {
-  const { amount, moneyTransferOrg, RefNum, comment } = req.body;
+  const { amount, moneyTransferOrg, RefNum, comment, customerId } = req.body;
+
   Transaction.create({
+    customer_id: customerId,
     transaction_date: Sequelize.fn('NOW'),
     amount,
     transaction_type: 'RECEIVE_MONEY',
