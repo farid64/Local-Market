@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
-import './App.css';
-import SearchBar from './SearchBar';
-import SearchResult from './SearchResult';
+import React, { Component } from "react";
+import "./App.css";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import MuiRoot from "./MuiRoot";
+import Dashboard from "./Dashboard/Dashboard";
+
+const styles = theme => ({
+  App: {
+    borderColor: theme.palette.primary.light,
+    borderWidth: 5,
+    backgroundColor: theme.palette.primary.dark
+  }
+});
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <SearchBar />
-          <SearchResult />
-        </header>
-      </div>
-    );
+    return <Dashboard />;
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default MuiRoot(withStyles(styles)(App));

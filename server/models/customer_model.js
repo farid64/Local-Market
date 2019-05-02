@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../config/connection');
 
 const Customer = sequelize.define(
-  'customer',
+  'Customer',
   {
     firstname: {
       type: Sequelize.STRING
@@ -13,10 +13,16 @@ const Customer = sequelize.define(
     },
     birthday: {
       type: Sequelize.DATE
+    },
+    phonenumber: {
+      type: Sequelize.STRING
     }
   },
   {
-    timestamps: false
+    underscored: true,
+    freezeTableName: true,
+    tableName: 'customer',
+    timestamps: true
   }
 );
 
