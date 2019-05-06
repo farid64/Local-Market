@@ -36,3 +36,10 @@ export const submitEbt = (values, history) => async dispatch => {
   history.push('/');
   dispatch({ type: 'search_reset' });
 };
+
+export const submitBillPay = (values, history) => async dispatch => {
+  const res = await axios.post('/api/transactions_bill_pay', values);
+
+  history.push('/');
+  dispatch({ type: 'search_reset' });
+};

@@ -114,6 +114,26 @@ exports.receiveMoney = function(req, res) {
   });
 };
 
+exports.billPay = function(req, res) {
+  const { amount, billPayVendor, ConfNum, comment, customerId } = req.body;
+
+  Transaction.create({
+    customer_id: customerId,
+    transaction_date: Sequelize.fn('NOW'),
+    amount,
+    transaction_type: 'RECEIVE_MONEY',
+    transaction_category: '',
+    details: {
+      billPayVendor,
+      ConfNum,
+      comment
+    }
+  }).then(transaction => {
+    console.log(transaction);
+    res.send(transaction);
+  });
+};
+
 exports.customerUpdate = function(req, res) {
   const { lastname, firstname, birthday, phonenumber } = req.body;
   Customer.create({

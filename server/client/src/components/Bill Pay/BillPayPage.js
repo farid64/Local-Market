@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import BillPayFormPage1 from './BillPayFormPage1';
 import BillPayFormPage2 from './BillPayFormPage2';
+import CustomerName from '../CustomerName';
 // import { submitBillPay } from '../../actions';
 
 class BillPayPage extends Component {
@@ -33,6 +34,7 @@ class BillPayPage extends Component {
     const { page } = this.state;
     return (
       <React.Fragment>
+        <CustomerName />
         {page === 1 && <BillPayFormPage1 onSubmit={this.nextPage} />}
         {page === 2 && (
           <BillPayFormPage2
@@ -44,10 +46,6 @@ class BillPayPage extends Component {
     );
   }
 }
-
-BillPayPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
 
 BillPayPage = reduxForm({
   form: 'bill_pay',

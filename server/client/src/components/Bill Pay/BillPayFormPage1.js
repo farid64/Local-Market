@@ -14,7 +14,6 @@ import FormTextField from '../FormTextField';
 import FormNumberField from '../FormNumberField';
 import FormRadioField from '../FormRadioField';
 import nums from '../../utils/convertToNumber';
-import CustomerName from '../CustomerName';
 
 const styles = theme => ({
   container: {
@@ -86,79 +85,78 @@ class BillPayFormPage1 extends React.Component {
 
     return (
       <React.Fragment>
-        <CustomerName />
         <form className={classes.container} onSubmit={handleSubmit}>
           <Field
-            label='Bill Pay Vendor'
-            name='billPayVendor'
+            label="Bill Pay Vendor"
+            name="billPayVendor"
             component={FormSelectField}
             className={classes.textField}
           >
-            <option value='Afex'>Afex</option>
-            <option value='Ipps'>Ipps</option>
+            <option value="Afex">Afex</option>
+            <option value="Ipps">Ipps</option>
           </Field>
 
           <Field
-            label='Service Type'
-            name='billPayServiceType'
+            label="Service Type"
+            name="billPayServiceType"
             component={FormRadioField}
           >
-            <option value='inNetword' label='In Network' />
-            <option value='outNetwork' label='Out Of Network' />
-            <option value='justInTime' label='Just In Time' />
+            <option value="inNetword" label="In Network" />
+            <option value="outNetwork" label="Out Of Network" />
+            <option value="justInTime" label="Just In Time" />
           </Field>
           <Divider className={classes.lineBreak} />
 
           <Field
-            label='Confirmation Number'
-            name='ConfNum'
+            label="Confirmation Number"
+            name="ConfNum"
             component={FormTextField}
             className={classes.textField}
-            type='text'
+            type="text"
           />
 
           <Divider className={classes.lineBreak} />
 
           <Field
-            label='Bill Amount'
-            name='billAmount'
+            label="Bill Amount"
+            name="billAmount"
             className={classes.textField}
             component={FormNumberField}
-            placeholder='$1500'
-            prefix='$'
+            placeholder="$1500"
+            prefix="$"
             normalize={value => nums(value)}
           />
 
           <Divider className={classes.lineBreak} />
 
           <Field
-            label='Servie Amount'
-            name='serviceAmount'
+            label="Servie Amount"
+            name="serviceAmount"
             className={classes.textField}
             component={FormNumberField}
-            placeholder='$1.5'
-            prefix='$'
+            placeholder="$1.5"
+            prefix="$"
             normalize={value => nums(value)}
           />
 
           <Divider className={classes.lineBreak} />
 
           <Field
-            label='Amount to be paid'
-            name='amountToBePaid'
+            label="Amount to be paid"
+            name="amountToBePaid"
             className={classes.textField}
             component={FormNumberField}
-            placeholder='$1,470'
-            prefix='$'
+            placeholder="$1,470"
+            prefix="$"
             ReadOnly
           />
 
           <Divider className={classes.lineBreak} />
 
           <Button
-            type='submit'
-            variant='contained'
-            color='primary'
+            type="submit"
+            variant="contained"
+            color="primary"
             className={classes.button}
           >
             <MoneyIcon className={classes.leftIcon} />
@@ -167,8 +165,8 @@ class BillPayFormPage1 extends React.Component {
 
           <Button
             onClick={() => history.push('/')}
-            variant='contained'
-            color='secondary'
+            variant="contained"
+            color="secondary"
             className={classes.button}
           >
             <CancelIcon className={classes.leftIcon} />
