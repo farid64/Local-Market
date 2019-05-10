@@ -12,5 +12,7 @@ router.post('/transactions_ebt', api_controller.ebt);
 router.post('/transactions_money_order', api_controller.moneyOrder);
 router.post('/transactions_receive_money', api_controller.receiveMoney);
 router.post('/transactions_bill_pay', api_controller.billPay);
+router.post('/transactions_cash_in', api_controller.cashIn);
+router.post('/transactions_cash_out', api_controller.cashOut);
 router.post('/customer_update', api_controller.customerUpdate);
 module.exports = router;

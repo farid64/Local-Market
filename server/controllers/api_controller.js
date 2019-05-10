@@ -78,6 +78,38 @@ exports.ebt = function(req, res) {
   });
 };
 
+exports.cashIn = function(req, res) {
+  const { amount, comment } = req.body;
+  Transaction.create({
+    transaction_date: Sequelize.fn('NOW'),
+    amount,
+    transaction_type: 'CASH_IN',
+    transaction_category: '',
+    details: {
+      comment
+    }
+  }).then(transaction => {
+    console.log(transaction);
+    res.send(transaction);
+  });
+};
+
+exports.cashOut = function(req, res) {
+  const { amount, comment } = req.body;
+  Transaction.create({
+    transaction_date: Sequelize.fn('NOW'),
+    amount,
+    transaction_type: 'CASH_OUT',
+    transaction_category: '',
+    details: {
+      comment
+    }
+  }).then(transaction => {
+    console.log(transaction);
+    res.send(transaction);
+  });
+};
+
 exports.moneyOrder = function(req, res) {
   const { totalAmount, moneyOrders } = req.body;
   Transaction.create({

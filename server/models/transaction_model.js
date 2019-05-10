@@ -19,6 +19,8 @@ const Transaction = sequelize.define(
         'CHECK_CASHING',
         'ATM',
         'EBT',
+        'CASH_IN',
+        'CASH_OUT',
         'BILL_PAYMENT',
         'RECEIVE_MONEY',
         'OTHER_SALE'
