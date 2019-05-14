@@ -147,18 +147,35 @@ exports.receiveMoney = function(req, res) {
 };
 
 exports.billPay = function(req, res) {
-  const { amount, billPayVendor, ConfNum, comment, customerId } = req.body;
+  const {
+    billPayVendor,
+    billPayServiceType,
+    ConfNum,
+    billAmount,
+    serviceAmount,
+    AmountToBePaid,
+    methodOfPayment,
+    amountTendered,
+    balanceDue,
+    customerId
+  } = req.body;
 
   Transaction.create({
     customer_id: customerId,
     transaction_date: Sequelize.fn('NOW'),
-    amount,
-    transaction_type: 'RECEIVE_MONEY',
+    amount: balanceDue,
+    transaction_type: 'BILL_PAYMENT',
     transaction_category: '',
     details: {
       billPayVendor,
+      billPayServiceType,
       ConfNum,
-      comment
+      billAmount,
+      serviceAmount,
+      AmountToBePaid,
+      methodOfPayment,
+      amountTendered,
+      balanceDue
     }
   }).then(transaction => {
     console.log(transaction);

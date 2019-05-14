@@ -6,7 +6,6 @@ import { submitMoneyOrder } from '../../actions';
 
 class MoneyOrderPage extends React.Component {
   submit = values => {
-    console.log(values);
     this.props.submitMoneyOrder(values, this.props.history);
   };
   render() {

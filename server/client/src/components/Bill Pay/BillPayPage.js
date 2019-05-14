@@ -27,7 +27,9 @@ class BillPayPage extends Component {
   }
 
   submit = values => {
+    const { customerSelected, history } = this.props;
     console.log(values);
+    this.props.submitBillPay(values, history, customerSelected.id);
   };
 
   render() {
@@ -51,12 +53,19 @@ BillPayPage = reduxForm({
   form: 'bill_pay',
   initialValues: {
     amountTendered: 0,
-    methodOfPayment: 'cash'
+    methodOfPayment: 'cash',
+    billPayVendor: 'Afex'
   },
   destroyOnUnmount: true
 })(BillPayPage);
 
+const mapStateToProps = state => {
+  return {
+    customerSelected: state.search.customerSelected
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { submitBillPay }
 )(withRouter(BillPayPage));
