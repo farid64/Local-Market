@@ -105,6 +105,7 @@ class BillPayFormPage1 extends React.Component {
             <option value="outNetwork" label="Out Of Network" />
             <option value="justInTime" label="Just In Time" />
           </Field>
+
           <Divider className={classes.lineBreak} />
 
           <Field
@@ -124,6 +125,8 @@ class BillPayFormPage1 extends React.Component {
             component={FormNumberField}
             placeholder="$1500"
             prefix="$"
+            decimalScale={2}
+            fixedDecimalScale
             normalize={value => nums(value)}
           />
 
@@ -136,6 +139,8 @@ class BillPayFormPage1 extends React.Component {
             component={FormNumberField}
             placeholder="$1.5"
             prefix="$"
+            decimalScale={2}
+            fixedDecimalScale
             normalize={value => nums(value)}
           />
 
@@ -148,6 +153,8 @@ class BillPayFormPage1 extends React.Component {
             component={FormNumberField}
             placeholder="$1,470"
             prefix="$"
+            decimalScale={2}
+            fixedDecimalScale
             ReadOnly
           />
 
@@ -180,14 +187,20 @@ class BillPayFormPage1 extends React.Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.moneyTransferOrg) {
-    errors.moneyTransferOrg = 'You must provide a value';
+  if (!values.billPayVendor) {
+    errors.billPayVendor = 'You must provide a value';
   }
-  if (!values.RefNum) {
-    errors.RefNum = 'You must provide a value';
+  if (!values.ConfNum) {
+    errors.ConfNum = 'You must provide a value';
   }
-  if (!values.amount) {
-    errors.amount = 'You must provide a value';
+  if (!values.billAmount) {
+    errors.billAmount = 'You must provide a value';
+  }
+  if (!values.billPayServiceType) {
+    errors.billPayServiceType = 'Please choose an option';
+  }
+  if (!values.serviceAmount) {
+    errors.serviceAmount = 'Please enter a value';
   }
 
   return errors;

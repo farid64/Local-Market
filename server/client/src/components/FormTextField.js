@@ -23,6 +23,7 @@ const FormField = ({
         className={classes.textField}
         label={label}
         helperText={touched && error}
+        FormHelperTextProps={{ error: true }}
         {...rest}
       />
     </React.Fragment>

@@ -4,15 +4,22 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
-  FormLabel
+  FormLabel,
+  FormHelperText
 } from '@material-ui/core';
 
-const FormRadioField = ({ input, label, children, ...rest }) => {
+const FormRadioField = ({
+  input,
+  label,
+  children,
+  meta: { touched, error },
+  ...rest
+}) => {
   return (
     <React.Fragment>
-      <FormControl component='fieldset' {...rest}>
-        <FormLabel component='legend'>{label}</FormLabel>
-        <RadioGroup aria-label='label' {...input}>
+      <FormControl component="fieldset" {...rest}>
+        <FormLabel component="legend">{label}</FormLabel>
+        <RadioGroup aria-label="label" {...input}>
           {children.map((item, index) => {
             return (
               <FormControlLabel
@@ -24,6 +31,7 @@ const FormRadioField = ({ input, label, children, ...rest }) => {
             );
           })}
         </RadioGroup>
+        <FormHelperText error>{touched && error}</FormHelperText>
       </FormControl>
     </React.Fragment>
   );

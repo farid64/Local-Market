@@ -18,6 +18,8 @@ const FormNumberField = ({
   placeholder,
   input,
   ReadOnly,
+  decimalScale,
+  fixedDecimalScale,
   meta: { touched, error },
   ...rest
 }) => {
@@ -32,8 +34,11 @@ const FormNumberField = ({
         placeholder={placeholder}
         inputProps={{
           prefix,
-          readOnly: ReadOnly
+          readOnly: ReadOnly,
+          decimalScale,
+          fixedDecimalScale
         }}
+        FormHelperTextProps={{ error: true }}
         helperText={touched && error}
         {...rest}
       />

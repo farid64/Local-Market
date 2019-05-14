@@ -10,15 +10,15 @@ import {
   IconButton
 } from '@material-ui/core';
 import BackspaceIcon from '@material-ui/icons/Backspace';
-import nums from '../../utils/convertToNumber';
+import nums from '../utils/convertToNumber';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper
+    overflow: 'hidden'
+    // backgroundColor: theme.palette.background.paper
   },
   gridListTile: {
     display: 'flex',
@@ -99,7 +99,7 @@ class NumPad extends Component {
   }
 
   handleClick = num => {
-    let newNum;
+    let newNum = '0';
     let oldNum;
     let numArr = [];
     let caretPos;
@@ -108,7 +108,7 @@ class NumPad extends Component {
       oldNum = this.state.num;
       newNum = oldNum.substring(0, caretPos) + num + oldNum.substring(caretPos);
       this.setState({
-        num: newNum,
+        num: newNum ? newNum : '',
         caretPosition: caretPos + num.length
       });
     } else {
@@ -119,19 +119,20 @@ class NumPad extends Component {
         numArr.splice(caretPos - 1, 1);
         newNum = numArr.join('');
         this.setState({
-          num: newNum,
+          num: newNum ? newNum : '',
           caretPosition: caretPos - 1
         });
       } else {
         return;
       }
     }
-    this.props.input.onChange(newNum);
+    this.props.input.onChange(newNum ? newNum : '');
   };
 
   onChange = event => {
-    this.setState({ num: event.currentTarget.value });
-    this.props.input.onChange(event.currentTarget.value);
+    const num = event.currentTarget.value;
+    this.setState({ num });
+    this.props.input.onChange(num ? num : '');
   };
 
   onFocus = event => {
@@ -153,11 +154,7 @@ class NumPad extends Component {
     } = this.props;
     return (
       <div className={classes.root}>
-        <GridList
-          cellHeight={nums(height)}
-          style={{ width: nums(width) }}
-          cols={3}
-        >
+        <GridList cellHeight={height} style={{ width }} cols={3}>
           <GridListTile
             cols={2}
             // className={classes.gridListTile}

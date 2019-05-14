@@ -51,6 +51,7 @@ const FormPhoneNumber = ({
           inputComponent: TextMaskCustom
         }}
         placeholder={placeholder}
+        FormHelperTextProps={{ error: true }}
         helperText={touched && error}
         {...rest}
       />

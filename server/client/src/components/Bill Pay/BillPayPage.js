@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import BillPayFormPage1 from './BillPayFormPage1';
 import BillPayFormPage2 from './BillPayFormPage2';
 import CustomerName from '../CustomerName';
-// import { submitBillPay } from '../../actions';
+import { submitBillPay } from '../../actions';
 
 class BillPayPage extends Component {
   constructor(props) {
@@ -49,10 +49,14 @@ class BillPayPage extends Component {
 
 BillPayPage = reduxForm({
   form: 'bill_pay',
+  initialValues: {
+    amountTendered: 0,
+    methodOfPayment: 'cash'
+  },
   destroyOnUnmount: true
 })(BillPayPage);
 
 export default connect(
   null,
-  {}
+  { submitBillPay }
 )(withRouter(BillPayPage));

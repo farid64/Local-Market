@@ -17,18 +17,17 @@ class ComponentWrapper extends Component {
     this.setState({ num: event.currentTarget.value });
   };
 
-  renderField = field => {
-    return <input onChange={field.input.onChange} />;
-  };
-
   render() {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <NumPad action={this.handleChildData} />
-        <input value={this.state.num} onChange={this.handleChange} />
-        <Field name="test_num" component={this.renderField} />
-        {console.log(this.state.num)}
+        <Field
+          name="test_num"
+          label="Cash"
+          height="100"
+          width="306"
+          component={NumPad}
+        />
         <Button type="submit"> submit </Button>
       </form>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,11 +13,18 @@ const styles = theme => ({
   }
 });
 
-const FormField = ({ classes, input, label, children, ...rest }) => {
+const FormField = ({
+  classes,
+  input,
+  label,
+  children,
+  meta: { touched, error },
+  ...rest
+}) => {
   return (
     <React.Fragment>
       <FormControl className={classes.formControl} {...rest}>
-        <InputLabel htmlFor='age-simple'>{label}</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <Select {...input}>
           {children.map((item, index) => {
             return (
@@ -26,6 +34,7 @@ const FormField = ({ classes, input, label, children, ...rest }) => {
             );
           })}
         </Select>
+        <FormHelperText error>{touched && error}</FormHelperText>
       </FormControl>
     </React.Fragment>
   );
