@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import nums from '../../utils/convertToNumber';
+import NumberFieldReverse from './testNumberFieldReverse';
 
 const styles = theme => ({
   root: {
@@ -83,14 +84,26 @@ const numpadData = [
     cols: 1
   },
   {
+    num: '.',
+    cols: 0.5
+  },
+  {
     num: '00',
-    cols: 2
+    cols: 1.5
   }
 ];
 
 class NumPad extends Component {
   constructor(props) {
     super(props);
+    this.textInput = null;
+    // this.setTextInputRef = el => {
+    //   this.textInput = el;
+    // };
+    // this.focusTextInput = () => {
+    //   console.log(this.textInput);
+    //   if (this.textInput) this.textInput.focus();
+    // };
     this.state = {
       num: '',
       element: null,
@@ -98,22 +111,40 @@ class NumPad extends Component {
     };
   }
 
+  componentDidMount() {
+    // this.setState({ element: this.myRef.current });
+    // this.state.element.focus();
+    // this.focusTextInput();
+    console.log(this.textInput);
+  }
+
+  decimalMax = string => {
+    const dotIndex = string.indexOf('.');
+    if (dotIndex === -1) {
+      return null;
+    }
+    if (string[dotIndex + 3]) {
+      return true;
+    } else {
+      return null;
+    }
+  };
+
   handleClick = num => {
+    let oldNum = this.state.num;
     let newNum;
-    let oldNum;
     let numArr = [];
-    let caretPos;
+    let caretPos = this.state.caretPosition;
     if (num !== 'back') {
-      caretPos = this.state.caretPosition;
-      oldNum = this.state.num;
       newNum = oldNum.substring(0, caretPos) + num + oldNum.substring(caretPos);
+      if (this.decimalMax(newNum)) {
+        return;
+      }
       this.setState({
         num: newNum,
         caretPosition: caretPos + num.length
       });
     } else {
-      caretPos = this.state.caretPosition;
-      oldNum = this.state.num;
       numArr = oldNum.split('');
       if (caretPos !== 0) {
         numArr.splice(caretPos - 1, 1);
@@ -130,15 +161,17 @@ class NumPad extends Component {
   };
 
   onChange = event => {
-    this.setState({ num: event.currentTarget.value });
-    this.props.input.onChange(event.currentTarget.value);
+    this.setState({ num: event.target.value });
+    this.props.input.onChange(event.target.value);
   };
 
   onFocus = event => {
+    console.log(event.target.value);
     this.setState({ element: event.target });
   };
 
   onBlur = event => {
+    console.log(event.target.selectionStart);
     this.setState({ caretPosition: event.target.selectionStart });
   };
 
@@ -165,19 +198,19 @@ class NumPad extends Component {
               tile: classes.gridListTileInner
             }}
           >
-            <TextField
-              label={label}
-              className={classes.textField}
-              value={input.value}
-              onChange={this.onChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">$</InputAdornment>
-                )
+            {console.log(this.state.element, input.value)}
+            <NumberFieldReverse
+              input={{
+                onChange: this.onChange,
+                onFocus: this.onFocus,
+                onBlur: this.onBlur,
+                value: input.value
               }}
-              helperText={touched && error}
+              label={label}
+              prefix='$'
+              decimalScale={2}
+              fixedDecimalScale
+              inputRef={el => (this.textInput = el)}
             />
           </GridListTile>
           <GridListTile cols={1}>
@@ -201,7 +234,7 @@ class NumPad extends Component {
                 className={classes.buttonBase}
                 onClick={() => this.handleClick(numpad.num)}
               >
-                <Typography variant="h4" component="h2">
+                <Typography variant='h4' component='h2'>
                   {numpad.num}
                 </Typography>
               </ButtonBase>

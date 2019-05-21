@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, formValues } from 'redux-form';
+import { withStyles } from '@material-ui/core/styles';
 import Child from './testComponentChild';
 import Child2 from '../FormSelectField';
 import { Button } from '@material-ui/core';
 import NumPad from './testNumPad';
+import NumberField from './testNumberFieldReverse';
+import nums from '../../utils/convertToNumber';
+
+const styles = theme => ({
+  textField: {
+    width: '50%'
+  }
+});
 
 class ComponentWrapper extends Component {
   state = {
@@ -18,17 +27,29 @@ class ComponentWrapper extends Component {
   };
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, classes } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <Field
-          name="test_num"
-          label="Cash"
-          height="100"
-          width="306"
-          component={NumPad}
+          name='test_num'
+          label='Cash'
+          prefix='$'
+          decimalScale={2}
+          fixedDecimalScale
+          component={NumberField}
+          normalize={value => (value ? nums(value) : '')}
+          className={classes.textField}
         />
-        <Button type="submit"> submit </Button>
+
+        <Field
+          name='test_num_pad'
+          label='numpad'
+          component={NumPad}
+          height={75}
+          width={231}
+          normalize={value => (value ? nums(value) : '')}
+        />
+        <Button type='submit'> submit </Button>
       </form>
     );
   }
@@ -36,7 +57,7 @@ class ComponentWrapper extends Component {
 
 ComponentWrapper = reduxForm({
   form: 'test'
-})(ComponentWrapper);
+})(withStyles(styles)(ComponentWrapper));
 
 const submit = values => {
   console.log(values);
@@ -46,4 +67,4 @@ const toExport = () => {
   return <ComponentWrapper onSubmit={submit} />;
 };
 
-export default toExport;
+export default withStyles(styles)(toExport);

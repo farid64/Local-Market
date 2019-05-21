@@ -22,7 +22,13 @@ class SearchResult extends Component {
   handleListItemClick = id => {
     const { history, menuSelectedRoute } = this.props;
     this.props.customerSelect(id, history, menuSelectedRoute);
-    this.props.onClose();
+    console.log('hello');
+
+    if (this.props.onClose) {
+      this.props.onClose();
+    } else {
+      console.log('no close');
+    }
   };
 
   render() {

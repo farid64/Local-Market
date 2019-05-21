@@ -32,7 +32,7 @@ class SearchBarWithPopper extends Component {
         });
   };
 
-  handlePopClose = () => {
+  handlePopClose = event => {
     this.setState({
       anchorEl: null
     });
@@ -45,19 +45,19 @@ class SearchBarWithPopper extends Component {
 
     return (
       <ClickAwayListener onClickAway={this.handlePopClose.bind(this)}>
-        <React.Fragment>
+        <div>
           <SearchBar forPopper={this.handlePopper} />
           <Popper
             open={openPop}
             anchorEl={anchorEl}
-            placement="bottom-start"
+            placement='bottom-start'
             className={classes.popperStyle}
           >
             <Paper className={classes.paperStyle} square>
               <SearchResult />
             </Paper>
           </Popper>
-        </React.Fragment>
+        </div>
       </ClickAwayListener>
     );
   }
