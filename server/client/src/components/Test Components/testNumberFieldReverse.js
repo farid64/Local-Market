@@ -19,7 +19,7 @@ const NumberField = ({
       prefix={prefix}
       decimalScale={decimalScale}
       fixedDecimalScale
-      getInputRef={inputRef}
+      inputRef={inputRef}
       {...input}
       {...rest}
     />

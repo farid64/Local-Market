@@ -96,26 +96,19 @@ const numpadData = [
 class NumPad extends Component {
   constructor(props) {
     super(props);
-    this.textInput = null;
-    // this.setTextInputRef = el => {
-    //   this.textInput = el;
-    // };
-    // this.focusTextInput = () => {
-    //   console.log(this.textInput);
-    //   if (this.textInput) this.textInput.focus();
-    // };
+    this.textInputElement = null;
+    this.textInputCaretPosition = 0;
+    this.focusTextInput = () => {
+      if (this.textInputElement) this.textInputElement.focus();
+    };
     this.state = {
-      num: '',
-      element: null,
-      caretPosition: 0
+      num: ''
     };
   }
 
   componentDidMount() {
-    // this.setState({ element: this.myRef.current });
-    // this.state.element.focus();
+    this.textInputElement.setAttribute('readonly', 'true');
     // this.focusTextInput();
-    console.log(this.textInput);
   }
 
   decimalMax = string => {
@@ -134,24 +127,26 @@ class NumPad extends Component {
     let oldNum = this.state.num;
     let newNum;
     let numArr = [];
-    let caretPos = this.state.caretPosition;
+    let caretPos = this.textInputCaretPosition;
     if (num !== 'back') {
       newNum = oldNum.substring(0, caretPos) + num + oldNum.substring(caretPos);
       if (this.decimalMax(newNum)) {
         return;
       }
+      this.textInputCaretPosition = caretPos + num.length;
       this.setState({
-        num: newNum,
-        caretPosition: caretPos + num.length
+        num: newNum
+        // caretPosition: caretPos + num.length
       });
     } else {
       numArr = oldNum.split('');
       if (caretPos !== 0) {
         numArr.splice(caretPos - 1, 1);
         newNum = numArr.join('');
+        this.textInputCaretPosition = caretPos - 1;
         this.setState({
-          num: newNum,
-          caretPosition: caretPos - 1
+          num: newNum
+          // caretPosition: caretPos - 1
         });
       } else {
         return;
@@ -166,13 +161,14 @@ class NumPad extends Component {
   };
 
   onFocus = event => {
-    console.log(event.target.value);
-    this.setState({ element: event.target });
+    // this.setState({ caretPosition: event.target.selectionStart });
+    // this.textInputCaretPosition = event.target.selectionStart;
   };
 
   onBlur = event => {
-    console.log(event.target.selectionStart);
-    this.setState({ caretPosition: event.target.selectionStart });
+    // this.setState({ caretPosition: event.target.selectionStart });
+    this.textInputCaretPosition = event.target.selectionStart;
+    // event.target.focus();
   };
 
   render() {
@@ -198,7 +194,6 @@ class NumPad extends Component {
               tile: classes.gridListTileInner
             }}
           >
-            {console.log(this.state.element, input.value)}
             <NumberFieldReverse
               input={{
                 onChange: this.onChange,
@@ -210,7 +205,7 @@ class NumPad extends Component {
               prefix='$'
               decimalScale={2}
               fixedDecimalScale
-              inputRef={el => (this.textInput = el)}
+              inputRef={el => (this.textInputElement = el)}
             />
           </GridListTile>
           <GridListTile cols={1}>
